@@ -1,90 +1,167 @@
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-## User settings
-xcuserdata/
-
-## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
-*.xcscmblueprint
-*.xccheckout
-
-## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-build/
-DerivedData/
-*.moved-aside
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-
-## Obj-C/Swift specific
-*.hmap
-
-## App packaging
-*.ipa
-*.dSYM.zip
-*.dSYM
-
-## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
-
-.build/
-
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
-
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build/
-
-# Accio dependency management
-Dependencies/
-.accio/
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
-
-# Code Injection
-#
-# After new code Injection tools there's a generated folder /iOSInjectionProject
-# https://github.com/johnno1962/injectionforxcode
-
-iOSInjectionProject/
+Last login: Thu Mar  5 05:01:26 on console
+~ ❯ cd Documents/dev                                                   19:48:29
+  1 # Xcode
+  2 #
+  3 # gitignore contributors: remember to update Global/Xcode.gitignore, Objecti    ve-C.gitignore & Swift.gitignore
+  4
+  5 ## User settings
+  6 xcuserdata/
+  7
+  8 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xc    ode 9)
+  9 *.xcscmblueprint
+ 10 *.xccheckout
+ 11
+ 12 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xc    ode 4)
+ 13 build/
+ 14 DerivedData/
+ 15 *.moved-aside
+ 16 *.pbxuser
+ 17 !default.pbxuser
+ 18 *.mode1v3
+ 19 !default.mode1v3
+ 20 *.mode2v3
+ 1:1 [Top]                                 ~/Documents/dev/OGADA_iOS/.gitignore\
+".gitignore" 90L, 2171C
+  1 # Xcode
+  2 #
+  3 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gi    tignore
+  4
+  5 ## User settings
+  6 xcuserdata/
+  7
+  8 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+  9 *.xcscmblueprint
+ 10 *.xccheckout
+ 11
+ 12 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+ 13 build/
+ 14 DerivedData/
+ 15 *.moved-aside
+ 16 *.pbxuser
+ 17 !default.pbxuser
+ 18 *.mode1v3
+ 19 !default.mode1v3
+ 20 *.mode2v3
+ 21 !default.mode2v3
+ 22 *.perspectivev3
+ 1:1 [Top]                                                          ~/Documents/dev/OGADA_iOS/.gitignore\
+  1 # Xcode
+  2 #
+  3 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+  4
+  5 ## User settings
+  6 xcuserdata/
+  7
+  8 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+  9 *.xcscmblueprint
+ 10 *.xccheckout
+ 11
+ 12 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+ 13 build/
+ 14 DerivedData/
+ 15 *.moved-aside
+ 16 *.pbxuser
+ 17 !default.pbxuser
+ 18 *.mode1v3
+ 19 !default.mode1v3
+ 20 *.mode2v3
+ 21 !default.mode2v3
+ 22 *.perspectivev3
+ 23 !default.perspectivev3
+ 1:1 [Top]                                                                     ~/Documents/dev/OGADA_iOS/.gitignore\
+  2 #
+  3 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+  4
+  5 ## User settings
+  6 xcuserdata/
+  7
+  8 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+  9 *.xcscmblueprint
+ 10 *.xccheckout
+ 11
+ 12 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+ 13 build/
+ 14 DerivedData/
+ 15 *.moved-aside
+ 16 *.pbxuser
+ 17 !default.pbxuser
+ 18 *.mode1v3
+ 19 !default.mode1v3
+ 20 *.mode2v3
+ 21 !default.mode2v3
+ 22 *.perspectivev3
+ 23 !default.perspectivev3
+ 1:1 [Top]                                                                            ~/Documents/dev/OGADA_iOS/.gitignore\
+  1 # Xcode
+  2 #
+  3 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+  4
+  5 ## User settings
+  6 xcuserdata/
+  7
+  8 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+  9 *.xcscmblueprint
+ 10 *.xccheckout
+ 11
+ 12 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+ 13 build/
+ 14 DerivedData/
+ 15 *.moved-aside
+ 16 *.pbxuser
+ 17 !default.pbxuser
+ 18 *.mode1v3
+ 19 !default.mode1v3
+ 20 *.mode2v3
+ 21 !default.mode2v3
+ 22 *.perspectivev3
+ 23 !default.perspectivev3
+ 1:1 [Top]                                                                          ~/Documents/dev/OGADA_iOS/.gitignore\
+  1 # Xcode
+  2 #
+  3 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+  4
+  5 ## User settings
+  6 xcuserdata/
+  7
+  8 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+  9 *.xcscmblueprint
+ 10 *.xccheckout
+ 11
+ 12 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+ 13 build/
+ 14 DerivedData/
+ 15 *.moved-aside
+ 16 *.pbxuser
+ 17 !default.pbxuser
+ 18 *.mode1v3
+ 19 !default.mode1v3
+ 20 *.mode2v3
+ 21 !default.mode2v3
+ 22 *.perspectivev3
+ 23 !default.perspectivev3
+ 1:1 [Top]                                                                           ~/Documents/dev/OGADA_iOS/.gitignore\
+  1 ibuild/
+  2 DerivedData/
+  3 *.moved-aside
+  4 *.pbxuser
+  5 !default.pbxuser
+  6 *.mode1v3
+  7 !default.mode1v3
+  8 *.mode2v3
+  9 !default.mode2v3
+ 10 *.perspectivev3
+ 11 !default.perspectivev3
+ 12
+ 13 ## Obj-C/Swift specific
+ 14 *.hmap
+ 15
+ 16 ## App packaging
+ 17 *.ipa
+ 18 *.dSYM.zip
+ 19 *.dSYM
+ 20
+ 21 ## Playgrounds
+ 22 timeline.xctimeline
+ 23 playground.xcworkspace
+ 1:2 [Top]                                                                        [+] ~/Documents/dev/OGADA_iOS/.gitignore\
+-- INSERT (paste) --
