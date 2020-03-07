@@ -9,9 +9,10 @@
 import Foundation
 
 /*
- https://earthquake.kr:23490/s
+ https://earthquake.kr:23490/
  
  https://earthquake.kr:23490/query/통화쌍
+ 
  
  
  */
