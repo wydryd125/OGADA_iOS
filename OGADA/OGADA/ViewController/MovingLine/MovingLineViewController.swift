@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import GoogleMaps
 
 class MovingLineViewController: BaseViewController {
     
@@ -23,6 +24,7 @@ class MovingLineViewController: BaseViewController {
     private func setUI() {
         view.addSubview(movingeLineView)
         view.bringSubviewToFront(backButton)
+        
     }
     
     private func setConstraint() {
@@ -32,6 +34,12 @@ class MovingLineViewController: BaseViewController {
         movingeLineView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         movingeLineView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         movingeLineView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
         
     }
     
