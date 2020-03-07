@@ -10,7 +10,7 @@ import UIKit
 
 class TravelLogViewController: BaseViewController {
 
-    
+    private let budgetView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
