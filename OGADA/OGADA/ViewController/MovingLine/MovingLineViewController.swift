@@ -7,24 +7,32 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MovingLineViewController: BaseViewController {
+    
+    private let movingeLineView = MovingLineView(coordinate: CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20), zoom: 12)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
-        // Do any additional setup after loading the view.
+        setUI()
+        setConstraint()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: UI
+    private func setUI() {
+        view.addSubview(movingeLineView)
+        view.bringSubviewToFront(backButton)
     }
-    */
-
+    
+    private func setConstraint() {
+        
+        movingeLineView.translatesAutoresizingMaskIntoConstraints = false
+        movingeLineView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        movingeLineView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        movingeLineView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        movingeLineView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+    }
+    
 }
