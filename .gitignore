@@ -5,5 +5,7 @@
 
 ##xcode
 OGADA/OGADA.xcodeproj/project.pbxproj
+
 OGADA/OGADA.xcworkspace/xcuserdata/yjc.xcuserdatad/UserInterfaceState.xcuserstate
 
+OGADA/OGADA/API/APIKey.swift
