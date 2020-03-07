@@ -8,12 +8,8 @@
 
 import Foundation
 
-enum RequestURL: String {
-    case airPort = "test"
-}
-
-struct API {
+struct GoogleMapAPI {
     
-    let requestURL: RequestURL
+    let url = ""
     
 }

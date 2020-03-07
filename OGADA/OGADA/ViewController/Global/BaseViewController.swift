@@ -10,7 +10,7 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    private let backButton = UIButton(type: .system)
+    let backButton = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
