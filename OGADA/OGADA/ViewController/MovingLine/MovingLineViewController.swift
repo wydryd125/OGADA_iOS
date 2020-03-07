@@ -13,6 +13,7 @@ class MovingLineViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
+        // test
         // Do any additional setup after loading the view.
     }
     
