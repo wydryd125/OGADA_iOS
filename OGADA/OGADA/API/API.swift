@@ -8,6 +8,12 @@
 
 import Foundation
 
+enum RequestURL: String {
+    case airPort = "test"
+}
+
 struct API {
+    
+    let requestURL: RequestURL
     
 }
