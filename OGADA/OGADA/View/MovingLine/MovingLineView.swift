@@ -16,7 +16,8 @@ class MovingLineView: UIView {
     
     init(coordinate: CLLocationCoordinate2D, zoom: Float) {
         
-        self.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: zoom)
+//        self.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: zoom)
+        self.camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
         self.mapView = GMSMapView.map(withFrame: .zero, camera: camera)
         
         super.init(frame: .zero)
@@ -45,6 +46,7 @@ class MovingLineView: UIView {
         marker.title = "Sydney"
         marker.snippet = "Australia"
         marker.map = mapView
+        
     }
     
     private func setConstraint() {
@@ -58,6 +60,8 @@ class MovingLineView: UIView {
         mapView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin).isActive = true
         mapView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin).isActive = true
         mapView.heightAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 0.4).isActive = true
+        
+        
         
     }
     
