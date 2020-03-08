@@ -52,6 +52,41 @@ class MainViewController: UIViewController {
         collectionView.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    
+    // MARK: Action
+    
+    private func pushTravelController() {
+        let tabBarController = UITabBarController()
+        
+        let boardingPassVC = BoardingPassViewController()
+        boardingPassVC.tabBarItem.title = "보딩패스"
+        
+        let movingLineVC = MovingLineViewController()
+        movingLineVC.tabBarItem.title = "동선"
+        
+        let travelLogVC = TravelLogViewController()
+        travelLogVC.tabBarItem.title = "가계부"
+        
+        let otherVC = OtherViewController()
+        otherVC.tabBarItem.title = "더보기"
+        
+        
+        tabBarController.viewControllers = [
+        boardingPassVC,
+        movingLineVC,
+        travelLogVC,
+        otherVC
+        ]
+        
+        
+        tabBarController.selectedIndex = 1
+        
+        tabBarController.tabBar.backgroundImage = UIImage()
+        tabBarController.tabBar.shadowImage = UIImage()
+        navigationController?.pushViewController(tabBarController, animated: true)
+        
+        
+    }
 
 }
 
@@ -88,10 +123,9 @@ extension MainViewController: UICollectionViewDelegate {
         case 0:
             print("add")
         default:
-            let boardingVC = BoardingPassViewController()
-            navigationController?.pushViewController(boardingVC, animated: false)
 //            let movingLingVC = MovingLineViewController()
 //            navigationController?.pushViewController(movingLingVC, animated: false)
+            pushTravelController()
             print("default")
         }
     }
@@ -144,8 +178,8 @@ extension MainViewController: MainButtonCollectionViewCellDelegate {
  
     func didTapAddButton() {
 //        print("버튼버튼")
-         let addTravelVC = AddTravelViewController()
-        navigationController?.pushViewController(addTravelVC, animated: false)
+        let addTravelVC = AddTravelViewController()
+        navigationController?.pushViewController(addTravelVC, animated: true)
        
 //        let addTravelVC = AddTravelViewController()
 //        addTravelVC.modalPresentationStyle = .fullScreen
