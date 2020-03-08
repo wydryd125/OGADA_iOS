@@ -9,17 +9,32 @@
 import UIKit
 import GoogleMaps
 
+enum Test {
+    case a(String)
+}
+
 class MovingLineView: UIView {
+    
+    let test = Test.a("AAA")
     
     private let camera: GMSCameraPosition
     let mapView: GMSMapView
     
+    let tableView = UITableView()
+    
+    let backButton = UIButton(type: .system)
+    
+    private let dateView = UIView()
+    private let dateLabel = UILabel()
+    let beforeDayButton = UIButton(type: .system)
+    let nextDayButton = UIButton(type: .system)
+    
+    let addPlacePointButton = UIButton(type: .system)
+    
     init(coordinate: CLLocationCoordinate2D, zoom: Float) {
         
-//        self.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: zoom)
-        self.camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        self.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: zoom)
         self.mapView = GMSMapView.map(withFrame: .zero, camera: camera)
-        
         super.init(frame: .zero)
         
         setUI()
@@ -37,16 +52,37 @@ class MovingLineView: UIView {
         
         backgroundColor = .background
         
-        [mapView].forEach({
+        let cornerRadius: CGFloat = 16
+        
+        [mapView, backButton, dateView, tableView, addPlacePointButton].forEach({
             addSubview($0)
         })
         
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView
+        [beforeDayButton, dateLabel, nextDayButton].forEach({
+            dateView.addSubview($0)
+        })
         
+        tableView.register(PlacePointCell.self, forCellReuseIdentifier: PlacePointCell.identifire)
+        tableView.backgroundColor = .clear
+        
+        backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        backButton.tintColor = .black
+        
+        mapView.layer.cornerRadius = cornerRadius
+        
+        dateLabel.textColor = .text
+        dateLabel.textAlignment = .center
+        dateLabel.text = "3/1  (1일차)"
+        
+        beforeDayButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        beforeDayButton.tintColor = .black
+        
+        nextDayButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        nextDayButton.tintColor = .black
+        
+        addPlacePointButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        addPlacePointButton.tintColor = .white
+        addPlacePointButton.backgroundColor = .theme
     }
     
     private func setConstraint() {
@@ -54,15 +90,63 @@ class MovingLineView: UIView {
         let guide = safeAreaLayoutGuide
         
         let margin: CGFloat = 8
+        let xMargin = margin * 2
+        let multiplier: CGFloat = 0.15
+        
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.topAnchor.constraint(equalTo: guide.topAnchor).isActive = true
+        backButton.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin).isActive = true
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.topAnchor.constraint(equalTo: guide.topAnchor).isActive = true
+        mapView.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: margin).isActive = true
         mapView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin).isActive = true
         mapView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin).isActive = true
         mapView.heightAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 0.4).isActive = true
         
+        dateView.translatesAutoresizingMaskIntoConstraints = false
+        dateView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: margin).isActive = true
+        dateView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: xMargin).isActive = true
+        dateView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -xMargin).isActive = true
+        
+        beforeDayButton.translatesAutoresizingMaskIntoConstraints = false
+        beforeDayButton.topAnchor.constraint(equalTo: dateView.topAnchor).isActive = true
+        beforeDayButton.leadingAnchor.constraint(equalTo: dateView.leadingAnchor).isActive = true
+        beforeDayButton.bottomAnchor.constraint(equalTo: dateView.bottomAnchor).isActive = true
+        beforeDayButton.widthAnchor.constraint(equalTo: beforeDayButton.heightAnchor).isActive = true
+        
+        nextDayButton.translatesAutoresizingMaskIntoConstraints = false
+        nextDayButton.topAnchor.constraint(equalTo: dateView.topAnchor).isActive = true
+        nextDayButton.trailingAnchor.constraint(equalTo: dateView.trailingAnchor).isActive = true
+        nextDayButton.bottomAnchor.constraint(equalTo: dateView.bottomAnchor).isActive = true
+        nextDayButton.widthAnchor.constraint(equalTo: nextDayButton.heightAnchor).isActive = true
+        
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.topAnchor.constraint(equalTo: dateView.topAnchor).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: beforeDayButton.trailingAnchor).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: nextDayButton.leadingAnchor).isActive = true
+        dateLabel.bottomAnchor.constraint(equalTo: dateView.bottomAnchor).isActive = true
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: dateView.bottomAnchor, constant: margin).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor).isActive = true
+        
+        addPlacePointButton.translatesAutoresizingMaskIntoConstraints = false
+        addPlacePointButton.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -margin).isActive = true
+        addPlacePointButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin).isActive = true
+        addPlacePointButton.widthAnchor.constraint(equalTo: guide.widthAnchor, multiplier: multiplier).isActive = true
+        addPlacePointButton.heightAnchor.constraint(equalTo: addPlacePointButton.widthAnchor).isActive = true
         
         
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        addPlacePointButton.layer.cornerRadius = addPlacePointButton.bounds.width / 2
+        
+        tableView.rowHeight = tableView.bounds.height / 4
     }
     
     
