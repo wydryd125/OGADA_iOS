@@ -34,6 +34,7 @@ class MainCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 20
         
         imageView.contentMode = .scaleAspectFill
+        imageView.image
         imageView.image = UIImage(named: "미국")
         
         imageView.backgroundColor = .opaqueSeparator
