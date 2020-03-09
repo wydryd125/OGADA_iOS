@@ -9,13 +9,7 @@
 import UIKit
 import GoogleMaps
 
-enum Test {
-    case a(String)
-}
-
 class MovingLineView: UIView {
-    
-    let test = Test.a("AAA")
     
     private let camera: GMSCameraPosition
     let mapView: GMSMapView
@@ -94,7 +88,7 @@ class MovingLineView: UIView {
         let multiplier: CGFloat = 0.15
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.topAnchor.constraint(equalTo: guide.topAnchor).isActive = true
+        backButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: margin).isActive = true
         backButton.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin).isActive = true
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
