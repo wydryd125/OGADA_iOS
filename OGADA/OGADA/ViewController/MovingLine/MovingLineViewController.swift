@@ -56,7 +56,8 @@ class MovingLineViewController: UIViewController {
     
     // + 버튼 누르면 새로운 포인트 추가하는 버튼
     @objc private func didTapAddPlacePointButton(sender: UIButton) {
-        print(#function)
+        let addPlacePointVC = AddPlacePointViewController()
+        navigationController?.pushViewController(addPlacePointVC, animated: true)
     }
     
     
