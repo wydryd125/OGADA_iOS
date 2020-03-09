@@ -8,12 +8,38 @@
 
 import UIKit
 
-class AddTravelViewController: UIViewController {
+class AddTravelViewController: BaseViewController {
+    
+    private let planeImage = UIImageView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .background
+        setUI()
+        setConstrains()
+    
+    }
+    //MARK: UI
+    func setUI() {
+         view.backgroundColor = .background
+        
+        planeImage.image = UIImage(named: "비행기배경")
+        planeImage.contentMode = .scaleAspectFit
+        view.addSubview(planeImage)
+    }
+    func setConstrains() {
+        let guide = view.safeAreaLayoutGuide
+        let padding: CGFloat = 8
+        
+        [planeImage].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        planeImage.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -padding * 4).isActive = true
+        planeImage.leadingAnchor.constraint(equalTo: guide.leadingAnchor).isActive = true
+        planeImage.widthAnchor.constraint(equalTo: guide.widthAnchor, multiplier: 0.7).isActive = true
+        planeImage.heightAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 0.3).isActive = true
         
     }
+    
 }
