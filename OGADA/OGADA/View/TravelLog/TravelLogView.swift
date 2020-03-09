@@ -68,7 +68,9 @@ class BudgetView: UIView {
         let subTextColor: UIColor = .lightGray
         
         let fixedTextSize: CGFloat = 16
-        let totalBudgetTextSize: CGFloat = 24
+        let totalBudgetTextSize: CGFloat = 28
+        let foreignText:CGFloat = 17            // 기본 textsize
+        let krwText:CGFloat = 14
         
         backgroundColor = .text
         
@@ -84,58 +86,64 @@ class BudgetView: UIView {
         
         moneyImage.image = UIImage(named: "money")
         moneyImage.contentMode = .scaleAspectFill
+//        moneyImage.contentMode = .scaleAspectFit
         
         cardImage.image = UIImage(named: "card")
         cardImage.contentMode = .scaleAspectFill
         
         addCashButton.setImage(UIImage(systemName: "plus.circle"), for: .normal)
         addCashButton.tintColor = .init(cgColor: hardUITintColor)
+        addCashButton.contentMode = .scaleAspectFill
         
         // 총예산
-        totalBudgetLabel.text = "\(totalBudget) krw"
+        totalBudgetLabel.text = "\(totalBudget) KRW"
         totalBudgetLabel.textColor = mainTextColor
         totalBudgetLabel.font = .boldSystemFont(ofSize: totalBudgetTextSize)
         
         // 남은예산
         foreignCashBalanceLabel.text = "\(foreignCashBalance) \(exchangeType)"
         foreignCashBalanceLabel.textColor = mainTextColor
+        foreignCashBalanceLabel.font = .boldSystemFont(ofSize: foreignText)
         
-        krwCashBalanceLabel.text = "\(krwCashBalance) krw"
+        krwCashBalanceLabel.text = "\(krwCashBalance) KRW"
         krwCashBalanceLabel.textColor = subTextColor
+        krwCashBalanceLabel.font = .systemFont(ofSize: krwText)
         
         foreignCardBalanceLabel.text = "\(foreignCardBalance) \(exchangeType)"
         foreignCardBalanceLabel.textColor = mainTextColor
+        foreignCardBalanceLabel.font = .boldSystemFont(ofSize: foreignText)
         
-        krwCardBalanceLabel.text = "\(krwCardBalance) krw"
+        krwCardBalanceLabel.text = "\(krwCardBalance) KRW"
         krwCardBalanceLabel.textColor = subTextColor
-        
+        krwCardBalanceLabel.font = .systemFont(ofSize: krwText)
         
         
         //2안
         moneyCardImage.image = UIImage(named: "card&cash")
         moneyCardImage.contentMode = .scaleAspectFill
         
-        foreignTotalBalanceLabel.text = "\(foreignCardBalance + foreignCashBalance) \(exchangeType)"
-        foreignTotalBalanceLabel.textColor = mainTextColor
+//        foreignTotalBalanceLabel.text = "\(foreignCardBalance + foreignCashBalance) \(exchangeType)"
+//        foreignTotalBalanceLabel.textColor = mainTextColor
         
-        krwTotalBalanceLabel.text = "\(krwCardBalance + krwCashBalance) krw"
-        krwTotalBalanceLabel.textColor = subTextColor
+//        krwTotalBalanceLabel.text = "\(krwCardBalance + krwCashBalance) KRW"
+//        krwTotalBalanceLabel.textColor = subTextColor
         
        
         
         addSubview(totalTextLabel)
         addSubview(balanceTextLabel)
-//        addSubview(moneyCardImage)
-//        addSubview(cardImage)
-//        addSubview(moneyImage)
+        addSubview(cardImage)
+        addSubview(moneyImage)
 //
         addSubview(totalBudgetLabel)
-//        addSubview(krwCashBalanceLabel)
-//        addSubview(krwCardBalanceLabel)
-//        addSubview(foreignCashBalanceLabel)
-//        addSubview(foreignCardBalanceLabel)
-//        addSubview(addCashButton)
+        addSubview(krwCashBalanceLabel)
+        addSubview(krwCardBalanceLabel)
+        addSubview(foreignCashBalanceLabel)
+        addSubview(foreignCardBalanceLabel)
+        addSubview(addCashButton)
+        
 //        // 2안
+//        addSubview(moneyCardImage)
 //        addSubview(krwTotalBalanceLabel)
 //        addSubview(foreignTotalBalanceLabel)
         
@@ -144,7 +152,6 @@ class BudgetView: UIView {
     private func setConstraint() {
         totalTextLabel.translatesAutoresizingMaskIntoConstraints = false
         balanceTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        moneyCardImage.translatesAutoresizingMaskIntoConstraints = false
         cardImage.translatesAutoresizingMaskIntoConstraints = false
         moneyImage.translatesAutoresizingMaskIntoConstraints = false
         
@@ -154,29 +161,40 @@ class BudgetView: UIView {
         foreignCashBalanceLabel.translatesAutoresizingMaskIntoConstraints = false
         foreignCardBalanceLabel.translatesAutoresizingMaskIntoConstraints = false
         addCashButton.translatesAutoresizingMaskIntoConstraints = false
+        
         // 2안
-        krwTotalBalanceLabel.translatesAutoresizingMaskIntoConstraints = false
-        foreignTotalBalanceLabel.translatesAutoresizingMaskIntoConstraints = false
+//        moneyCardImage.translatesAutoresizingMaskIntoConstraints = false
+//        krwTotalBalanceLabel.translatesAutoresizingMaskIntoConstraints = false
+//        foreignTotalBalanceLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let margin:CGFloat = 24  /*32*/
         let padding:CGFloat = 8
-        let imageHeight:CGFloat = 30
+        let textPadding:CGFloat = 4
+        
+        let imageHeight:CGFloat = 28
+        let moneyImageHeight:CGFloat = 36
+        let addButtonHeight:CGFloat = 40
         
         
         // 고정
         NSLayoutConstraint.activate([
-            totalTextLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: padding),
+            totalTextLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: margin),
             totalTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin)
 ,
             
             balanceTextLabel.topAnchor.constraint(equalTo: totalTextLabel.bottomAnchor, constant: margin),
             balanceTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
             
-//            moneyCardImage.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
+            moneyImage.topAnchor.constraint(equalTo: balanceTextLabel.bottomAnchor),
+            moneyImage.leadingAnchor.constraint(equalTo: balanceTextLabel.trailingAnchor, constant: margin),
+            moneyImage.heightAnchor.constraint(equalToConstant: moneyImageHeight /*imageHeight*/),
+            moneyImage.widthAnchor.constraint(equalToConstant: moneyImageHeight /*imageHeight*/),
+
+            cardImage.topAnchor.constraint(equalTo: moneyImage.bottomAnchor, constant: margin),
+            cardImage.leadingAnchor.constraint(equalTo: moneyImage.leadingAnchor),
+            cardImage.heightAnchor.constraint(equalToConstant: imageHeight),
+            cardImage.widthAnchor.constraint(equalToConstant: imageHeight),
             
-//            cardImage.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
-            
-//            moneyImage.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
         ])
         
         // 유동적
@@ -185,15 +203,30 @@ class BudgetView: UIView {
 //            totalBudgetLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: padding),
             totalBudgetLabel.leadingAnchor.constraint(equalTo: totalTextLabel.trailingAnchor, constant: margin * 2),
             
-//            krwCashBalanceLabel.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
+            foreignCashBalanceLabel.topAnchor.constraint(equalTo: moneyImage.topAnchor),
+            foreignCashBalanceLabel.leadingAnchor.constraint(equalTo: moneyImage.trailingAnchor, constant: margin),
             
-//            krwCardBalanceLabel.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
+            krwCashBalanceLabel.topAnchor.constraint(equalTo: foreignCashBalanceLabel.bottomAnchor, constant: textPadding /*padding*/),
+            krwCashBalanceLabel.leadingAnchor.constraint(equalTo: foreignCashBalanceLabel.leadingAnchor),
+
+            foreignCardBalanceLabel.topAnchor.constraint(equalTo: cardImage.topAnchor),
+            foreignCardBalanceLabel.leadingAnchor.constraint(equalTo: foreignCashBalanceLabel.leadingAnchor),
             
-//            foreignCashBalanceLabel.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
+            krwCardBalanceLabel.topAnchor.constraint(equalTo: foreignCardBalanceLabel.bottomAnchor, constant: textPadding /*padding*/),
+            krwCardBalanceLabel.leadingAnchor.constraint(equalTo: foreignCardBalanceLabel.leadingAnchor)
             
-//            foreignCardBalanceLabel.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
+
+        ])
+
+        
+        // MARK: - Button constraint
+        NSLayoutConstraint.activate([
             
-//            addCashButton.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
+            addCashButton.centerYAnchor.constraint(equalTo: foreignCashBalanceLabel.bottomAnchor, constant: (textPadding / 2) ),
+            addCashButton.leadingAnchor.constraint(equalTo: foreignCashBalanceLabel.trailingAnchor, constant: margin * 2),
+            addCashButton.heightAnchor.constraint(equalToConstant: addButtonHeight),
+            addCashButton.widthAnchor.constraint(equalToConstant: addButtonHeight)
+            
         ])
         
         // 2안
@@ -201,7 +234,13 @@ class BudgetView: UIView {
 //            krwTotalBalanceLabel.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
             
 //            foreignTotalBalanceLabel.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>, constant: <#T##CGFloat#>)
+            
+//            moneyCardImage.topAnchor.constraint(equalTo: cardImage.bottomAnchor, constant: margin),
+//            moneyCardImage.leadingAnchor.constraint(equalTo: moneyImage.leadingAnchor),
+//            moneyCardImage.heightAnchor.constraint(equalToConstant: imageHeight),
+//            moneyCardImage.widthAnchor.constraint(equalToConstant: imageHeight)
         ])
+        
     }
     
     
