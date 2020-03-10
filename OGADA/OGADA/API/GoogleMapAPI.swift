@@ -8,8 +8,20 @@
 
 import Foundation
 
+
 struct GoogleMapAPI {
     
-    let url = ""
+    private let searchPlaceURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+    
+    func searchPlaceRequest(query: String) {
+        
+        var urlComponent = URLComponents(string: searchPlaceURL)
+        
+        urlComponent?.queryItems = [
+        URLQueryItem(name: "query", value: query)
+        ]
+            
+        
+    }
     
 }

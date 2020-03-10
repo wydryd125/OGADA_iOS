@@ -53,8 +53,13 @@ class AddPlacePointViewController: UIViewController {
     
     @objc private func didTapSearchButton(sender: UIButton) {
         print(#function)
-        let testVC = TestViewController()
-        navigationController?.pushViewController(testVC, animated: true)
+//        let testVC = TestViewController()
+//        navigationController?.pushViewController(testVC, animated: true)
+        guard let text = addPlacePointView.searchTextField.text else { return }
+        
+        
+        
+        
     }
 
 }
