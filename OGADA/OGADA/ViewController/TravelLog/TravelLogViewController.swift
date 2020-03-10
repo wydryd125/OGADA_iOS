@@ -45,8 +45,9 @@ class TravelLogViewController: BaseViewController {
     }
     
     private func setUI() {
-        
+        backButton.tintColor = .lightGray
         view.addSubview(budgetView)
+        view.bringSubviewToFront(backButton)
     }
     private func setConstraint() {
         budgetView.translatesAutoresizingMaskIntoConstraints = false
