@@ -12,7 +12,7 @@ import GoogleMaps
 class AddPlacePointView: UIView {
     
     private let searchView = UIView()
-    private let searchTextField = UITextField()
+    let searchTextField = UITextField()
     let searchButton = UIButton(type: .system)
     let searchValueTabelView = UITableView()
     
