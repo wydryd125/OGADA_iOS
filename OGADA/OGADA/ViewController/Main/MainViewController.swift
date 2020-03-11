@@ -177,13 +177,10 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 extension MainViewController: MainButtonCollectionViewCellDelegate {
  
     func didTapAddButton() {
-//        print("버튼버튼")
+
         let addTravelVC = AddTravelViewController()
         navigationController?.pushViewController(addTravelVC, animated: true)
        
-//        let addTravelVC = AddTravelViewController()
-//        addTravelVC.modalPresentationStyle = .fullScreen
-//        present(addTravelVC, animated: true)
     }
 
 }
