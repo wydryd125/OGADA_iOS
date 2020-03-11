@@ -19,4 +19,7 @@ enum PaymentCategory: String {
     case other = "기타"
 }
 
-
+enum payType: String {
+    case card = "card"
+    case cash = "cash"
+}
