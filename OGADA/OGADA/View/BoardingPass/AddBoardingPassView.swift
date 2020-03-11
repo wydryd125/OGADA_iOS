@@ -28,12 +28,16 @@ class AddBoardingPassView: UIView {
         
         addBordingPassButton.setImage(UIImage(named: "add"), for: .normal)
         addBordingPassButton.contentMode = .scaleAspectFill
-        addBordingPassButton.addTarget(self, action: #selector(<#T##@objc method#>), for: .touchUpInside)
+        addBordingPassButton.addTarget(self, action: #selector(didTapAddBoardingPassButton), for: .touchUpInside)
         addSubview(addBordingPassButton)
         
         
     }
     func setConstraints() {
+        
+    }
+    
+    @objc func didTapAddBoardingPassButton() {
         
     }
     
