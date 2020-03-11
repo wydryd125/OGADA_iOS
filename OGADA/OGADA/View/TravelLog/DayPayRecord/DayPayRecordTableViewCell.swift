@@ -19,7 +19,7 @@ class DayPayRecordTableViewCell: UITableViewCell {
     private let commentLabel = UILabel()
     private let amountLabel = UILabel()
     
-    
+    // MARK: initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
