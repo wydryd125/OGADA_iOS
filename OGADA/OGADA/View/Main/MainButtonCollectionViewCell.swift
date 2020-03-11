@@ -24,8 +24,7 @@ class MainButtonCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    
-        travelAddButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+   
         setUI()
         setConstraints()
     }
@@ -42,7 +41,7 @@ class MainButtonCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 20
         
         travelAddButton.setImage(UIImage(named: "addButton"), for: .normal)
-//        travelAddButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        travelAddButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
 //        travelAddButton.backgroundColor = .white
         contentView.addSubview(travelAddButton)
         

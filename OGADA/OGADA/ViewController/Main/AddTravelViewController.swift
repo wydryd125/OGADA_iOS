@@ -10,12 +10,19 @@ import UIKit
 
 class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    private var departureDate: Date?
+    private var arrivalDate: Date?
+    private var nationSelected: String?
+    private var nationText: String?
+    private var foreignText: String?
+    
     private let OGADA = UILabel()
     private let leftImage = UIImageView()
     private let rightImage = UIImageView()
     private let nationLabel = UILabel()
     private let nationButton = UIButton()
-    private let nationArray = ["미국","중국","일본","필리핀","태국","스위스","프랑스","영국","베트남","대만","기타"]
+    private let nationArray = ["선택","대만","러시아","멕시코","미국","베트남","브라질","스위스","영국","유럽","인도","일본","중국","캐나다","태국","한국","호주","홍콩","기타"]
+    private lazy var nationArrayCount = self.nationArray.count
     private let nationPickerView = UIPickerView()
     private let otherNationTextField = UITextField()
     
@@ -25,7 +32,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
     
     private let memoImage = UIImageView()
     private let subTitleLabel = UILabel()
-    private let subTitleTextField = UITextField()
+    private let subTitleTextField = UITextField() // 텍스트뷰로 바꿔보기
     private let moneyLabel = UILabel()
     private let moneySelectButton = UIButton()
     
@@ -34,17 +41,12 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
     private let completeButton = UIButton()
     private let labelBoldLine = UILabel()
     private let labelBoldLine2 = UILabel()
-
-    var nationSelected: String?
-    var departureDateSelected: String?
-    var arrivalDateSelected: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //delegate
         setUI()
         setConstrains()
-    
     }
     //MARK: UI
     func setUI() {
@@ -59,15 +61,20 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         labelBoldLine.backgroundColor = .subText
         view.addSubview(labelBoldLine)
         
+        nationLabel.backgroundColor = .background
         nationLabel.text = "여행지"
         nationLabel.textAlignment = .left
         nationLabel.textColor = .text
         nationLabel.font = UIFont.boldSystemFont(ofSize: textSize)
         view.addSubview(nationLabel)
         
-        nationButton.backgroundColor = .background
-        nationButton.setTitle("선택해주세요.", for: .normal)
-        nationButton.setTitleColor(.subText, for: .normal)
+        nationButton.backgroundColor = .subText
+        nationButton.tag = 0
+        nationButton.setTitle("선택", for: .normal)
+        nationButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: textSize)
+        nationButton.titleLabel?.textAlignment = .left
+        nationButton.layer.cornerRadius = 8
+        nationButton.setTitleColor(.background, for: .normal)
         nationButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
         view.addSubview(nationButton)
         
@@ -105,6 +112,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         view.addSubview(arrivalDateButton)
         
         datePickerView.datePickerMode = .date
+        datePickerView.minimumDate = Date()
         
         subTitleLabel.text = "Note"
         subTitleLabel.textAlignment = .left
@@ -129,6 +137,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         view.addSubview(moneyLabel)
         
         moneySelectButton.backgroundColor = .background
+        moneySelectButton.tag = 1
         moneySelectButton.setTitle("선택해주세요.", for: .normal)
         moneySelectButton.setTitleColor(.subText, for: .normal)
         moneySelectButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
@@ -172,19 +181,21 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         labelBoldLine.heightAnchor.constraint(equalToConstant: lineHeight).isActive = true
         labelBoldLine.widthAnchor.constraint(equalTo: guide.widthAnchor, multiplier: 0.9).isActive = true
         
-        nationLabel.topAnchor.constraint(equalTo: labelBoldLine.bottomAnchor, constant: padding * 3).isActive = true
+        nationLabel.topAnchor.constraint(equalTo: labelBoldLine.bottomAnchor, constant: padding * 4).isActive = true
         nationLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 4).isActive = true
         nationLabel.heightAnchor.constraint(equalToConstant: 38).isActive = true
         nationLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
-    
-        nationButton.topAnchor.constraint(equalTo: labelBoldLine.bottomAnchor, constant: padding * 3.5).isActive = true
-        nationButton.leadingAnchor.constraint(equalTo: nationLabel.trailingAnchor, constant: padding * 4).isActive = true
-        nationButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 4).isActive = true
         
-        otherNationTextField.topAnchor.constraint(equalTo: nationButton.topAnchor).isActive = true
-        otherNationTextField.leadingAnchor.constraint(equalTo: nationButton.leadingAnchor).isActive = true
-        otherNationTextField.widthAnchor.constraint(equalTo: nationButton.widthAnchor).isActive = true
-        otherNationTextField.heightAnchor.constraint(equalTo: nationButton.heightAnchor).isActive = true
+        nationButton.topAnchor.constraint(equalTo: nationLabel.topAnchor).isActive = true
+        nationButton.leadingAnchor.constraint(equalTo: nationLabel.trailingAnchor).isActive = true
+        nationButton.heightAnchor.constraint(equalToConstant: 38).isActive = true
+        nationButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        otherNationTextField.topAnchor.constraint(equalTo: nationLabel.topAnchor, constant: 0.5).isActive = true
+        otherNationTextField.heightAnchor.constraint(equalToConstant: 38).isActive = true
+        otherNationTextField.leadingAnchor.constraint(equalTo: nationButton.trailingAnchor, constant: padding * 2).isActive = true
+        otherNationTextField.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 4).isActive = true
+       
         
         departureDateButton.topAnchor.constraint(equalTo: nationButton.bottomAnchor, constant: padding * 4).isActive = true
         departureDateButton.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 3).isActive = true
@@ -223,7 +234,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         moneyLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
         moneySelectButton.topAnchor.constraint(equalTo: moneyLabel.topAnchor, constant: 0.5).isActive = true
-        moneySelectButton.leadingAnchor.constraint(equalTo: nationLabel.trailingAnchor, constant: padding * 4).isActive = true
+        moneySelectButton.leadingAnchor.constraint(equalTo: moneyLabel.trailingAnchor, constant: padding * 4).isActive = true
         moneySelectButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 4).isActive = true
         
         totalBudgetLabel.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: padding * 4).isActive = true
@@ -254,8 +265,17 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
     var selectedButton = true
     @objc func showPicker(_ sender: UIButton) {
         
-        sender == nationButton ? () : ()
+        selectedButton = sender == nationButton
         
+        if sender.tag == 0 {
+            nationArrayCount = nationArray.count
+//            nationButton.backgroundColor = .text
+        } else {
+            nationArrayCount = nationArray.count - 1
+        }
+        
+        nationPickerView.reloadAllComponents()
+        nationPickerView.selectRow(0, inComponent: 0, animated: false)
         
         let alert = UIAlertController(title: "국가 선택", message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
@@ -273,7 +293,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return nationArray.count
+        nationArrayCount
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -284,18 +304,26 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         nationSelected = nationArray[row]
         
         let breedNationSelected = nationSelected!
-        nationButton.setTitle("\(breedNationSelected)", for: .normal)
+       
+        switch selectedButton {
+        case true:
+            nationButton.setTitle("\(breedNationSelected)", for: .normal)
+            nationText = breedNationSelected
+            case false:
+            moneySelectButton.setTitle("\(breedNationSelected)", for: .normal)
+            foreignText = breedNationSelected
+        }
         
         if breedNationSelected == "기타" {
             otherNationTextField.isHidden = false
             
         } else {
-             otherNationTextField.isHidden = true
+            nationButton.backgroundColor = .text
+            otherNationTextField.isHidden = true
         }
        
     }
     //날짜 피커뷰
-    
     @objc func dateChanged(_ sender: UIButton) {
         
         let alertTitle: String
@@ -309,14 +337,14 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
             dateFormatter.dateFormat = "yy.MM.dd"
-            let date = dateFormatter.string(from: self.datePickerView.date)
+            let dateString = dateFormatter.string(from: self.datePickerView.date)
             
             if sender == self.departureDateButton {
-                self.departureDateButton.setTitle(date, for: .normal)
-                self.departureDateButton.backgroundColor = .text
+                self.departureDateButton.setTitle(dateString, for: .normal)
+                self.departureDate = self.datePickerView.date
             } else {
-                self.arrivalDateButton.setTitle(date, for: .normal)
-                self.arrivalDateButton.backgroundColor = .text
+                self.arrivalDateButton.setTitle(dateString, for: .normal)
+                self.arrivalDate = self.datePickerView.date
             }
             
         }
@@ -330,7 +358,44 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         
     }
     // 컴플릿버튼 액션
+    var infoArray = [Any]()
+    
     @objc func completeButtonDidTap() {
+        guard let budgitToString = totalBudgetTextField.text,
+            let totalBudget = Int(budgitToString),
+            let foreign = foreignText,
+            let subTitle = subTitleTextField.text,
+            let departuteDate = departureDate,
+            let arrivalDate = arrivalDate,
+            let nation = nationText else { return print("foreign")}
+        
+        let travel = TravelInfo(nation: nation, departureDate: departuteDate, arrivalDate: arrivalDate, subTitle: subTitle, foreign: foreign, totalBudget: totalBudget)
+//        print(travel)
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        let dateKey = formatter.string(from: date)
+        let foreignKey = foreign
+        
+        let finalKey = dateKey + foreignKey
+        
+        var travelKey: [String]
+        
+        if let temp = UserDefaults.standard.object(forKey: UserDefaultKeys.travelKey.rawValue) as? [String] {
+            travelKey = temp
+//            travelKey.append(finalKey)
+        } else {
+            travelKey = []
+        }
+
+        travelKey.append(finalKey)
+        UserDefaults.standard.set(travelKey, forKey: "travelKey")
+        
+        
+        guard let result = try? JSONEncoder().encode(travel) else { return }
+        UserDefaults.standard.set(result, forKey: finalKey)
+        
         navigationController?.popViewController(animated: true)
     }
     
@@ -344,5 +409,8 @@ extension AddTravelViewController: UITextFieldDelegate {
                 return true
             }
         }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
     
 }
