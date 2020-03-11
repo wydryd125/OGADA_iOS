@@ -12,10 +12,21 @@ class DayPayRecordViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero)
     private lazy var headerView = DayPayRecordHeaderView(day: day, date: date)
+    private let createButton = UIButton()
     
+    // Header
     let day:Int = 1
     let date:String = "2020.01.03"
     let exchangeType = "USD"
+    
+    // Footer
+    let foreignCash: Int = 320
+    let krwCash:Int = 320000
+    let foreignCard:Int = 235
+    let krwCard:Int = 235000
+    lazy var foreignTotal: Int = foreignCash + foreignCard
+    lazy var krwTotal: Int = krwCash + krwCard
+    let exchnageType:String = "USD"
     
     // cell dummy Data
     let cellCount = 5
@@ -39,37 +50,66 @@ class DayPayRecordViewController: UIViewController {
 //MARK: - UI
     private func setUI() {
         tableView.dataSource = self
-//        tableView.delegate = self
         
         headerView.delegate = self
         
         tableView.register(DayPayRecordTableViewCell.self, forCellReuseIdentifier: DayPayRecordTableViewCell.identifier)
-//        tableView.rowHeight = UITableView.automaticDimension
+                
+        tableView.tableFooterView = DayPayRecordFooterView(foreignCash: foreignCash, krwCash: krwCash, foreignCard: foreignCard, krwCard: krwCard, foreignTotal: foreignTotal, krwTotal: krwTotal, exchnageType: exchangeType)
+        
+        createButton.setImage(UIImage(named: "plus_White"), for: .normal)
+        createButton.backgroundColor = .theme
+        createButton.imageView?.contentMode = .scaleAspectFit
+        createButton.layer.cornerRadius = 30
+        createButton.addTarget(self, action: #selector(didTabCreateButton(sender:)), for: .touchUpInside)
+        
+        
         view.addSubview(tableView)
         view.addSubview(headerView)
+        view.addSubview(createButton)
+        view.bringSubviewToFront(createButton)
     }
     
     private func setConstraint() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        createButton.translatesAutoresizingMaskIntoConstraints = false
         
         let margin: CGFloat = 24
         let padding: CGFloat = 16
+        
         let headerHeight: CGFloat = ((view.frame.width) / 2 - (margin * 3))
+        let buttonSize: CGFloat = 60
         
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: headerHeight),
-            
+
             tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            createButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -margin),
+            createButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -margin),
+            createButton.heightAnchor.constraint(equalToConstant: buttonSize),
+            createButton.widthAnchor.constraint(equalToConstant: buttonSize)
         ])
     }
-
+    
+    
+    
+    //MARK: - Action
+    @objc private func didTabCreateButton(sender: UIButton) {
+        let createVC = CreateDayPayRecordViewController()
+        createVC.modalPresentationStyle = .fullScreen
+        
+        present(createVC, animated:  true)
+       
+        
+    }
 
 }
 
@@ -94,17 +134,6 @@ extension DayPayRecordViewController: UITableViewDataSource {
     
 }
 
-//extension DayPayRecordViewController: UITableViewDelegate {
-////    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-////        let DayPayheaderView = DayPayRecordHeaderView(day: day, date: date) as UIView
-////
-////        return DayPayheaderView
-////    }
-//
-////    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-////        <#code#>
-////    }
-//}
 
 
 //MARKL - DayPayRecord Delegate
