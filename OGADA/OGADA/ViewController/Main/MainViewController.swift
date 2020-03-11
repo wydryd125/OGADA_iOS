@@ -130,7 +130,9 @@ extension MainViewController: UICollectionViewDataSource {
                 for: indexPath
                 ) as! MainCollectionViewCell
             
-//            cell.configure(travel: "" , departureDate: "departure", arrivalDate: "", sutitle: "")
+            let travel = travels[indexPath.row - 1]
+            
+            cell.configure(travel: travel.nation, departureDate: travel.departureDate, arrivalDate: travel.arrivalDate , sutitle: travel.subTitle)
 
             return cell
         }
