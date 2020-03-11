@@ -23,6 +23,7 @@ class DayPayRecordHeaderView: UIView {
     // MARK: initializer
     init(day: Int, date: String) {
         super.init(frame: .zero)
+        backgroundColor = .background
         
         dayLabel.text = "\(day) 일차"
         dateLabel.text = date

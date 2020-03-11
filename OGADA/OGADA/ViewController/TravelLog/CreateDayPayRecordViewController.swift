@@ -8,23 +8,54 @@
 
 import UIKit
 
-class CreateDayPayRecordViewController: UIViewController {
-
+class CreateDayPayRecordViewController: BaseViewController {
+    
+    
+    private let exchangeType = "USD"
+    
+    private lazy var createView = CreateDayPayView(frame: view.frame, exchangeType: exchangeType)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        view.backgroundColor = .background
         // Do any additional setup after loading the view.
+        setUI()
+        setConstraint()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: - UI
+    private func setUI() {
+        createView.delegate = self
+        
+        view.addSubview(createView)
+        view.bringSubviewToFront(backButton)
     }
-    */
+    
+    private func setConstraint() {
+        createView.frame = view.frame
 
+    }
+
+    //MARK: - Action
+    override func popAction() {
+        dismiss(animated: true, completion: nil)
+    }
+
+}
+
+//MARK: createDayPayRecord Delegate
+extension CreateDayPayRecordViewController: CreateDayPayDelegate {
+    func didTabCreateButton() {
+        // 완성!
+        print("didTabCreateButton")
+    }
+    
+    func addPicture() {
+        // 앨범에서 사진 가져오기.
+        print("addPicture")
+    }
+    
+    
 }
