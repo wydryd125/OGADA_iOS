@@ -13,7 +13,7 @@ import GoogleMaps
 class MovingLineViewController: UIViewController {
     
     private lazy var movingeLineView = MovingLineView(coordinate: CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20), zoom: 12)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -72,8 +72,6 @@ extension MovingLineViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let placePoint =
         
         let cell = tableView.dequeueReusableCell(withIdentifier: PlacePointCell.identifire, for: indexPath) as! PlacePointCell
         
