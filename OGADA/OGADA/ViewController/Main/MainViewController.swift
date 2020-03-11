@@ -43,11 +43,6 @@ class MainViewController: UIViewController {
             self.travels.append(travel)
         }
         
-        
-
-        
-        
-        
         collectionView.reloadData()
         
         
@@ -135,7 +130,7 @@ extension MainViewController: UICollectionViewDataSource {
                 for: indexPath
                 ) as! MainCollectionViewCell
             
-//            cell.configure(travel: travalInfo , departureDate: "", arrivalDate: "", sutitle: "")
+//            cell.configure(travel: "" , departureDate: "departure", arrivalDate: "", sutitle: "")
 
             return cell
         }

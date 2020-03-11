@@ -409,5 +409,8 @@ extension AddTravelViewController: UITextFieldDelegate {
                 return true
             }
         }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
     
 }
