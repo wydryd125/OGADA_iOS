@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 
+
 class MovingLineView: UIView {
     
     private let camera: GMSCameraPosition
