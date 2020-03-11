@@ -265,6 +265,13 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
     }
     
       // 국가 피커뷰
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+        view.endEditing(true)
+        
+    }
     var selectedButton = true
     @objc func showPicker(_ sender: UIButton) {
         

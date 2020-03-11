@@ -12,18 +12,26 @@ import GoogleMaps
 
 class MovingLineViewController: UIViewController {
     
-    private lazy var movingeLineView = MovingLineView(coordinate: CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20), zoom: 12)
+    private let movingeLineView = MovingLineView()
+    private var model = MovingLineModel()
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setConstraint()
     }
     
+    // MARK: setModel
+    
+    private func setModel() {
+        
+    }
+    
     // MARK: UI
     private func setUI() {
         view.addSubview(movingeLineView)
-        
+        navigationController?.navigationBar.isHidden = false
         movingeLineView.tableView.dataSource = self
         movingeLineView.tableView.delegate = self
         
@@ -56,7 +64,8 @@ class MovingLineViewController: UIViewController {
     
     // + 버튼 누르면 새로운 포인트 추가하는 버튼
     @objc private func didTapAddPlacePointButton(sender: UIButton) {
-        let addPlacePointVC = AddPlacePointViewController()
+        let addPlacePointVC = AddPlacePointViewController(position: 1, placeList: [])
+        addPlacePointVC.delegate = self
         navigationController?.pushViewController(addPlacePointVC, animated: true)
     }
     
@@ -83,6 +92,16 @@ extension MovingLineViewController: UITableViewDataSource {
 }
 
 extension MovingLineViewController: UITableViewDelegate {
+    
+    
+}
+
+extension MovingLineViewController: AddPlacePointViewControllerDelegate {
+    func completeAddPlaces(position: Int, placeList: [Place]) {
+        
+        
+        
+    }
     
     
 }
