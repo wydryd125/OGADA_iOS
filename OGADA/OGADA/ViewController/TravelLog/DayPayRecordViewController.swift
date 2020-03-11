@@ -10,8 +10,11 @@ import UIKit
 
 class DayPayRecordViewController: UIViewController {
     
-    private lazy var tableView = UITableView(frame: view.frame)
+    private let tableView = UITableView(frame: .zero)
+    private lazy var headerView = DayPayRecordHeaderView(day: day, date: date)
     
+    let day:Int = 1
+    let date:String = "2020.01.03"
     let exchangeType = "USD"
     
     // cell dummy Data
@@ -29,7 +32,7 @@ class DayPayRecordViewController: UIViewController {
         view.backgroundColor = .background
         
         setUI()
-//        setConstraint()
+        setConstraint()
     }
     
     
@@ -37,9 +40,34 @@ class DayPayRecordViewController: UIViewController {
     private func setUI() {
         tableView.dataSource = self
 //        tableView.delegate = self
+        
+        headerView.delegate = self
+        
         tableView.register(DayPayRecordTableViewCell.self, forCellReuseIdentifier: DayPayRecordTableViewCell.identifier)
 //        tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
+        view.addSubview(headerView)
+    }
+    
+    private func setConstraint() {
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let margin: CGFloat = 24
+        let padding: CGFloat = 16
+        let headerHeight: CGFloat = ((view.frame.width) / 2 - (margin * 3))
+        
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: view.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: headerHeight),
+            
+            tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 
 
@@ -52,6 +80,7 @@ extension DayPayRecordViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellCount
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -66,7 +95,23 @@ extension DayPayRecordViewController: UITableViewDataSource {
 }
 
 //extension DayPayRecordViewController: UITableViewDelegate {
-////    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+////    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+////        let DayPayheaderView = DayPayRecordHeaderView(day: day, date: date) as UIView
+////
+////        return DayPayheaderView
+////    }
+//
+////    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 ////        <#code#>
 ////    }
 //}
+
+
+//MARKL - DayPayRecord Delegate
+extension DayPayRecordViewController: DayPayRecordHeaderDelegate {
+    func backFunc() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+}
