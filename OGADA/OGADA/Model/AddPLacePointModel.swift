@@ -7,8 +7,24 @@
 //
 
 import Foundation
+import CoreLocation
 
 
 struct AddPlacePointModel {
+    private let position: Int
+    private var placeList: [Place]
     
+    mutating func insertPlace(index: Int, place: Place) {
+        placeList.insert(place, at: index)
+    }
 }
+
+
+struct Place: Codable {
+    let latitude: Double
+    let longitude: Double
+    let name: String
+    let address: String
+    let id: String?
+}
+

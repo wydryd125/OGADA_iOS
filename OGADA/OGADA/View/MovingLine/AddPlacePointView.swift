@@ -16,7 +16,7 @@ class AddPlacePointView: UIView {
     
     let  mapView = MKMapView()
     
-    private let selectedAnnotationView = SelectedAnnotationView()
+    let selectedAnnotationView = SelectedAnnotationView()
     
     private var searchValueTabelViewHeightConstraint: NSLayoutConstraint?
     
@@ -55,9 +55,6 @@ class AddPlacePointView: UIView {
         
         let margin: CGFloat = 8
         
-//        let selectedAnnotationViewXMargin: CGFloat = 40
-//        let selectedAnnotationViewYMargin: CGFloat = 40
-        
         mapView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         mapView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         mapView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -66,27 +63,12 @@ class AddPlacePointView: UIView {
         backButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: margin).isActive = true
         backButton.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin).isActive = true
         
-//        selectedAnnotationView.topAnchor.constraint(equalTo: guide.topAnchor, constant: selectedAnnotationViewYMargin).isActive = true
-//        selectedAnnotationView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: selectedAnnotationViewXMargin).isActive = true
-//        selectedAnnotationView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -selectedAnnotationViewXMargin).isActive = true
-//        selectedAnnotationView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -selectedAnnotationViewYMargin).isActive = true
-        
         selectedAnnotationView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
         selectedAnnotationView.centerYAnchor.constraint(equalTo: guide.centerYAnchor).isActive = true
-        
         
     }
     
     //MARK: Action
-    
-    func canceldSearch() {
-        endEditing(true)
-        UIView.animate(withDuration: 0.2, animations: {
-            self.searchValueTabelViewHeightConstraint?.constant = 0
-            self.layoutIfNeeded()
-        })
-    }
-    
     
     // 기존 어노테이션들 삭제
     func removeAnnotations() {

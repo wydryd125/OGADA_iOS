@@ -16,14 +16,18 @@ class AddPlacePointViewController: UIViewController {
     private let api = GoogleMapAPI()
     private let locationManager = CLLocationManager()
     private let searchView = UIView()
-    
     private let resultViewController: GMSAutocompleteResultsViewController
     private let searchController: UISearchController
     
-    init() {
+    private var model: AddPlacePointModel
+    
+    init(position: Int, placeList: [Place]) {
         let resultViewController = GMSAutocompleteResultsViewController()
         self.resultViewController = resultViewController
         self.searchController = UISearchController(searchResultsController: resultViewController)
+        
+        self.model = AddPlacePointModel(position: position, placeList: placeList)
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -87,7 +91,7 @@ class AddPlacePointViewController: UIViewController {
         let searchViewWidth: CGFloat = view.frame.width - insets.left - insets.right
         let searchViewHeight: CGFloat = searchController.searchBar.bounds.height
         searchView.frame = CGRect(x: 0, y: insets.top, width: searchViewWidth, height: searchViewHeight)
-        print(searchViewHeight)
+//        print(searchViewHeight)
     }
     
     //MARK: Action
@@ -133,6 +137,11 @@ class AddPlacePointViewController: UIViewController {
 extension AddPlacePointViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let name = view.annotation?.title ?? ""
+        let address = view.annotation?.subtitle ?? ""
+        
+        addPlacePointView.selectedAnnotationView.configure(name: name ?? "", address: address ?? "", PlaceList: [1, 2, 3, 4])
+        mapView.selectedAnnotations.removeAll()
         
     }
     
@@ -154,11 +163,11 @@ extension AddPlacePointViewController: GMSAutocompleteResultsViewControllerDeleg
 
   // Turn the network activity indicator on and off again.
   func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//    UIApplication.shared.isNetworkActivityIndicatorVisible = true
   }
 
   func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//    UIApplication.shared.isNetworkActivityIndicatorVisible = false
   }
 }
 

@@ -23,7 +23,7 @@ class MovingLineViewController: UIViewController {
     // MARK: UI
     private func setUI() {
         view.addSubview(movingeLineView)
-        
+        navigationController?.navigationBar.isHidden = false
         movingeLineView.tableView.dataSource = self
         movingeLineView.tableView.delegate = self
         
