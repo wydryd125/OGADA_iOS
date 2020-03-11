@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController(rootViewController: MainViewController())
         window.rootViewController = navigationController
+//        window.rootViewController = AddBoardingPassViewController()
         window.makeKeyAndVisible()
         self.window = window
     }

@@ -22,8 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey(APIKey.googleMap.rawValue)
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController(rootViewController: MainViewController())
-        window.rootViewController = navigationController
+//        let navigationController = UINavigationController(rootViewController: MainViewController())
+//        window.rootViewController = navigationController
+        window.rootViewController = AddBoardingPassViewController()
         window.makeKeyAndVisible()
         self.window = window
         
