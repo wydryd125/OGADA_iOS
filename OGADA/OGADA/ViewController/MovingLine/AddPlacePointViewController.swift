@@ -10,23 +10,29 @@ import UIKit
 import MapKit
 import GooglePlaces
 
+protocol AddPlacePointViewControllerDelegate: class {
+    func completeAddPlaces(position: Int, placeList: [Place])
+}
+
 class AddPlacePointViewController: UIViewController {
     
     private let addPlacePointView = AddPlacePointView()
-    private let api = GoogleMapAPI()
     private let locationManager = CLLocationManager()
+    
     private let searchView = UIView()
     private let resultViewController: GMSAutocompleteResultsViewController
     private let searchController: UISearchController
     
     private var model: AddPlacePointModel
     
+    weak var delegate: AddPlacePointViewControllerDelegate?
+    
     init(position: Int, placeList: [Place]) {
         let resultViewController = GMSAutocompleteResultsViewController()
         self.resultViewController = resultViewController
         self.searchController = UISearchController(searchResultsController: resultViewController)
         
-        self.model = AddPlacePointModel(position: position, placeList: placeList)
+        self.model = AddPlacePointModel(position: 1, placeList: placeList)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -43,6 +49,15 @@ class AddPlacePointViewController: UIViewController {
         setConstraint()
         
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        delegate?.completeAddPlaces(position: model.position, placeList: model.placeList)
+        
+    }
+    
+    
     
     //MARK: UI
     
@@ -67,14 +82,17 @@ class AddPlacePointViewController: UIViewController {
         searchController.searchResultsUpdater = resultViewController
         resultViewController.delegate = self
         definesPresentationContext = true
-        
-        
         addPlacePointView.backButton.addTarget(
             self,
             action: #selector(popAction(sender:)),
             for: .touchUpInside)
         
         addPlacePointView.mapView.delegate = self
+        addPlacePointView.selectedAnnotationView.picker.delegate = self
+        addPlacePointView.selectedAnnotationView.picker.dataSource = self
+        
+        addPlacePointView.selectedAnnotationView.addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        addPlacePointView.selectedAnnotationView.cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
     }
     
     private func setConstraint() {
@@ -123,6 +141,29 @@ class AddPlacePointViewController: UIViewController {
         addPlacePointView.mapView.addAnnotation(annotation)
     }
     
+    // 장소 추가 버튼 클릭
+    @objc private func didTapAddButton() {
+        print(#function)
+        
+        let mapView = addPlacePointView.mapView
+        guard let place = model.currentPlace,
+            let index = model.selectedNumberOfPicker
+            else { return }
+        model.placeList.insert(place, at: index)
+        addPlacePointView.selectedAnnotationView.hiddenView()
+        mapView.removeAnnotations(mapView.annotations)
+//        print(model.placeList)
+    }
+    
+    // 장소 추가 취소 버튼 클릭
+    @objc private func didTapCancelButton() {
+        let mapView = addPlacePointView.mapView
+        let selectedAnnotationView = addPlacePointView.selectedAnnotationView
+        
+        selectedAnnotationView.hiddenView()
+        mapView.selectedAnnotations.removeAll()
+    }
+    
     // alert메세지 띄우기
     private func displayAlert(title: String, message: String) {
            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -133,19 +174,42 @@ class AddPlacePointViewController: UIViewController {
 
 }
 
-//MARK: mapViewDelegate
+// MARK: extension
 extension AddPlacePointViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let name = view.annotation?.title ?? ""
-        let address = view.annotation?.subtitle ?? ""
-        
-        addPlacePointView.selectedAnnotationView.configure(name: name ?? "", address: address ?? "", PlaceList: [1, 2, 3, 4])
-        mapView.selectedAnnotations.removeAll()
-        
+        guard let place = model.currentPlace else { return }
+        addPlacePointView.selectedAnnotationView.configure(selectedPlace: place)
+        model.selectedNumberOfPicker = 0
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        model.selectedNumberOfPicker = nil
     }
     
 }
+
+extension AddPlacePointViewController: UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        model.placeList.count + 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return row == 0 ? "맨앞": model.placeList[row - 1].name
+    }
+}
+
+extension AddPlacePointViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        model.selectedNumberOfPicker = row
+    }
+}
+
 
 extension AddPlacePointViewController: GMSAutocompleteResultsViewControllerDelegate {
   func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
@@ -153,6 +217,18 @@ extension AddPlacePointViewController: GMSAutocompleteResultsViewControllerDeleg
     searchController.isActive = false
     // Do something with the selected place.
     setRegion(place: place)
+    let coordinate = place.coordinate
+    let name = place.name ?? ""
+    let address = place.formattedAddress ?? ""
+    
+    let newPlace = Place(
+        latitude: coordinate.latitude,
+        longitude: coordinate.longitude,
+        name: name ,
+        address: address,
+        id: place.placeID)
+    
+    model.currentPlace = newPlace
   }
 
   func resultsController(_ resultsController: GMSAutocompleteResultsViewController,

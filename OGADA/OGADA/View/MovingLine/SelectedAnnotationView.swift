@@ -8,19 +8,26 @@
 
 import UIKit
 
+protocol SelectedAnnotationViewDelegate: class {
+    func addAction(index: Int)
+}
+
 class SelectedAnnotationView: UIView {
     
     private let nameLabel = UILabel()
     private let addressLabel = UILabel()
     private let pickerGuideLabel = UILabel()
     let picker = UIPickerView()
-    private let addButton = UIButton(type: .system)
-    private let cancelButton = UIButton(type: .system)
-    private var placeList: [Int] = [] {
+    let addButton = UIButton(type: .system)
+    let cancelButton = UIButton(type: .system)
+    private var placeList: [Place] = [] {
         didSet {
             picker.reloadAllComponents()
+            picker.selectedRow(inComponent: 0)
         }
     }
+    
+//    weak var delegate: SelectedAnnotationViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,12 +68,13 @@ class SelectedAnnotationView: UIView {
         addButton.tintColor = .white
         addButton.backgroundColor = .positive
         addButton.layer.cornerRadius = buttonCorner
+//        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         
         cancelButton.setTitle("취소", for: .normal)
         cancelButton.tintColor = .white
         cancelButton.backgroundColor = .negative
         cancelButton.layer.cornerRadius = buttonCorner
-        cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
+        
         
     }
     
@@ -111,20 +119,17 @@ class SelectedAnnotationView: UIView {
     
     //MARK: Action
     
-    func configure(name: String, address: String, PlaceList: [Int]) {
-        nameLabel.text = name
-        addressLabel.text = address
-        self.placeList = PlaceList
-        
+    func configure(selectedPlace: Place) {
+        nameLabel.text = selectedPlace.name
+        addressLabel.text = selectedPlace.address
+//        self.placeList = placeList
+        picker.reloadAllComponents()
+        picker.selectRow(0, inComponent: 0, animated: false)
         displayView()
-        
     }
     
-    @objc func didTapCancelButton() {
-        hiddenView()
-    }
     
-    private func hiddenView() {
+    func hiddenView() {
         UIView.animate(withDuration: 0.2, animations: {
             self.transform = .init(scaleX: 0.001, y: 0.001)
         }, completion: { _ in

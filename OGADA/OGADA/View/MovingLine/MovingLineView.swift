@@ -7,14 +7,12 @@
 //
 
 import UIKit
-import GoogleMaps
+import MapKit
 
 
 class MovingLineView: UIView {
     
-    private let camera: GMSCameraPosition
-    let mapView: GMSMapView
-    
+    let mapView = MKMapView()
     let tableView = UITableView()
     
     let backButton = UIButton(type: .system)
@@ -26,11 +24,8 @@ class MovingLineView: UIView {
     
     let addPlacePointButton = UIButton(type: .system)
     
-    init(coordinate: CLLocationCoordinate2D, zoom: Float) {
-        
-        self.camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: zoom)
-        self.mapView = GMSMapView.map(withFrame: .zero, camera: camera)
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         setUI()
         setConstraint()

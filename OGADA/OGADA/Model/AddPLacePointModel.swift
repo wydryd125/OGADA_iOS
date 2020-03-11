@@ -11,11 +11,18 @@ import CoreLocation
 
 
 struct AddPlacePointModel {
-    private let position: Int
-    private var placeList: [Place]
+    let position: Int
+    var placeList: [Place]
+    var currentPlace: Place?
+    var selectedNumberOfPicker: Int?
     
-    mutating func insertPlace(index: Int, place: Place) {
-        placeList.insert(place, at: index)
+    init(position: Int, placeList: [Place]) {
+        self.position = position
+        self.placeList = placeList
+    }
+    
+    mutating func insertPlace(position: Int, place: Place) {
+        placeList.insert(place, at: position)
     }
 }
 
