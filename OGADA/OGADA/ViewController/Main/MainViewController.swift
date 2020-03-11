@@ -10,8 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    
-    private var tempData = [0, 1, 2, 3, 4]
+    private var travels: [TravelInfo] = []
    
     private enum UI {
            static let itemsInLine: CGFloat = 2
@@ -32,8 +31,30 @@ class MainViewController: UIViewController {
         setConstrains()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let UDkeys = UserDefaults.standard.object(forKey: UserDefaultKeys.travelKey.rawValue) as? [String] else { return }
+        
+        for key in UDkeys {
+            guard let travelData = UserDefaults.standard.data(forKey: key) else { break }
+            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { break }
+            self.travels.append(travel)
+        }
+        
+        
+
+        
+        
+        
+        collectionView.reloadData()
+        
+        
+    }
     // MARK: UI
     private func setUI() {
+        
         navigationController?.navigationBar.isHidden = true
 
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.identifier)
@@ -91,9 +112,10 @@ class MainViewController: UIViewController {
 }
 
 //MARK: extension
+
 extension MainViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        tempData.count + 1
+        return travels.count + 1
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -112,6 +134,9 @@ extension MainViewController: UICollectionViewDataSource {
                 withReuseIdentifier: MainCollectionViewCell.identifier,
                 for: indexPath
                 ) as! MainCollectionViewCell
+            
+//            cell.configure(travel: travalInfo , departureDate: "", arrivalDate: "", sutitle: "")
+
             return cell
         }
     }

@@ -29,7 +29,7 @@ class MainCollectionViewCell: UICollectionViewCell {
     }
     //MARK: UI
     func setUI() {
-        
+
         clipsToBounds = true
         layer.cornerRadius = 20
         
@@ -42,8 +42,7 @@ class MainCollectionViewCell: UICollectionViewCell {
         
         travelLabel.textAlignment = .center
         travelLabel.font = UIFont.boldSystemFont(ofSize: 32)
-        travelLabel.text = "NewYork"
-        travelLabel.textColor = .text
+        travelLabel.text = ""
 //        travelLabel.backgroundColor = .red
         contentView.addSubview(travelLabel)
         
@@ -102,5 +101,12 @@ class MainCollectionViewCell: UICollectionViewCell {
         customTitleLabel.trailingAnchor.constraint(equalTo: travelLabel.trailingAnchor).isActive = true
         customTitleLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.16).isActive = true
         
+    }
+    
+    func configure(travel: String, departureDate: String, arrivalDate: String, sutitle: String) {
+        travelLabel.text = travel
+        departuredateLabel.text = departureDate
+        arrivaldateLabel.text = arrivalDate
+        customTitleLabel.text = sutitle
     }
 }
