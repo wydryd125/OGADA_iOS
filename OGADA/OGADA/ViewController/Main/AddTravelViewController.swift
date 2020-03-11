@@ -260,6 +260,9 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         
     }
     //MARK: Action
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+          self.view.endEditing(true)
+    }
     
       // 국가 피커뷰
     var selectedButton = true
@@ -409,9 +412,7 @@ extension AddTravelViewController: UITextFieldDelegate {
                 return true
             }
         }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
-    }
+  
     
 
 
