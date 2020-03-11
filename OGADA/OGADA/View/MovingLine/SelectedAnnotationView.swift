@@ -94,7 +94,7 @@ class SelectedAnnotationView: UIView {
         
     }
     
-    @objc didTapCancelButton() {
+    @objc func didTapCancelButton() {
         
     }
     
