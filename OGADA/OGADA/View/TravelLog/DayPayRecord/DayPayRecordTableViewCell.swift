@@ -19,7 +19,7 @@ class DayPayRecordTableViewCell: UITableViewCell {
     private let commentLabel = UILabel()
     private let amountLabel = UILabel()
     
-    
+    // MARK: initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -33,11 +33,15 @@ class DayPayRecordTableViewCell: UITableViewCell {
     
     // MARK: - UI
     private func setUI() {
-        let titleFontSize: CGFloat = 20
+        let titleFontSize: CGFloat = 22
         let commentFontSize: CGFloat = 15
-        let amountFontSize: CGFloat = 24
+        let amountFontSize: CGFloat = 20
         
         titleImage.contentMode = .scaleAspectFill
+        
+        categoryImage.contentMode = .scaleAspectFill
+        
+        payTypeImage.contentMode = .scaleAspectFit
         
         titleLabel.textColor = .text
         titleLabel.font = .boldSystemFont(ofSize: titleFontSize)
@@ -48,28 +52,28 @@ class DayPayRecordTableViewCell: UITableViewCell {
         amountLabel.textColor = .text
         amountLabel.font = .boldSystemFont(ofSize: amountFontSize)
         
-        /*
+        
          [titleImage, categoryImage, titleLabel, commentLabel, payTypeImage, amountLabel].forEach {
              contentView.addSubview($0)
          }
-         */
+         
         
-        [titleImage, titleLabel].forEach {
-            contentView.addSubview($0)
-        }
+//        [titleImage, titleLabel].forEach {
+//            contentView.addSubview($0)
+//        }
     }
     
     private func setConstraint() {
-        /*
+        
          [titleImage, categoryImage, titleLabel, commentLabel, payTypeImage, amountLabel].forEach {
              $0.translatesAutoresizingMaskIntoConstraints = false
          }
-         */
-        [titleImage, titleLabel].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+         
+//        [titleImage, titleLabel].forEach {
+//            $0.translatesAutoresizingMaskIntoConstraints = false
+//        }
         
-        let margin: CGFloat = 36
+        let margin: CGFloat = 24
         let padding: CGFloat = 16
         
         let titleImageHeight: CGFloat = (contentView.frame.width) / 2 - (margin * 2)
@@ -82,42 +86,31 @@ class DayPayRecordTableViewCell: UITableViewCell {
             titleImage.heightAnchor.constraint(equalToConstant: titleImageHeight),
             titleImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -margin),
             titleImage.widthAnchor.constraint(equalToConstant: titleImageHeight),
-
             
-//            categoryImage.topAnchor.constraint(equalTo: titleImage.topAnchor),
-//            categoryImage.leadingAnchor.constraint(equalTo: titleImage.trailingAnchor, constant: margin),
-//            categoryImage.heightAnchor.constraint(equalToConstant: miniImageHeight),
-//            categoryImage.widthAnchor.constraint(equalToConstant: miniImageHeight),
+            categoryImage.topAnchor.constraint(equalTo: titleImage.topAnchor),
+            categoryImage.leadingAnchor.constraint(equalTo: titleImage.trailingAnchor, constant: margin),
+            categoryImage.heightAnchor.constraint(equalToConstant: miniImageHeight),
+            categoryImage.widthAnchor.constraint(equalToConstant: miniImageHeight),
             
             titleLabel.topAnchor.constraint(equalTo: titleImage.topAnchor),
-//            titleLabel.leadingAnchor.constraint(equalTo: categoryImage.trailingAnchor, constant: padding),
-            titleLabel.leadingAnchor.constraint(equalTo: titleImage.trailingAnchor, constant: padding),
-//
-//            commentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: margin),
+            titleLabel.leadingAnchor.constraint(equalTo: categoryImage.trailingAnchor, constant: padding),
+//            titleLabel.leadingAnchor.constraint(equalTo: titleImage.trailingAnchor, constant: padding),
+
+            commentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
 //            commentLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-//
-//            amountLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
-//            amountLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-//
-//            payTypeImage.topAnchor.constraint(equalTo: amountLabel.topAnchor),
-//            payTypeImage.leadingAnchor.constraint(equalTo: categoryImage.leadingAnchor),
-//            payTypeImage.heightAnchor.constraint(equalToConstant: miniImageHeight),
-//            payTypeImage.widthAnchor.constraint(equalToConstant: miniImageHeight)
+            commentLabel.leadingAnchor.constraint(equalTo: categoryImage.leadingAnchor),
+
+            amountLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -margin),
+            amountLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+
+            payTypeImage.topAnchor.constraint(equalTo: amountLabel.topAnchor),
+            payTypeImage.leadingAnchor.constraint(equalTo: categoryImage.leadingAnchor),
+            payTypeImage.heightAnchor.constraint(equalToConstant: miniImageHeight),
+            payTypeImage.widthAnchor.constraint(equalToConstant: miniImageHeight)
             
         ])
     }
     
-    
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
     
     //MARK: - configure
     func configure(titleImage: UIImage, categoryImage: UIImage, title: String, comment: String, payTypeImage: UIImage, amount: Int, exchangeType: String) {

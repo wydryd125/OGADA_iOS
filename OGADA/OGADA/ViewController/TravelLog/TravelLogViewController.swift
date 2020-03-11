@@ -57,10 +57,12 @@ class TravelLogViewController: BaseViewController {
         collectionView.dataSource = self
         
         
-        view.bringSubviewToFront(backButton)
         
         view.addSubview(budgetView)
         view.addSubview(collectionView)
+        view.bringSubviewToFront(backButton)
+
+        
     }
     
     private func setConstraint() {
@@ -139,7 +141,7 @@ extension TravelLogViewController: UICollectionViewDelegateFlowLayout {
         
 //        let dayPayRecordVC = UINavigationController(rootViewController: DayPayRecordViewController())
         
-//        dayPayRecordVC.modalPresentationStyle = .fullScreen
+        dayPayRecordVC.modalPresentationStyle = .fullScreen
         present(dayPayRecordVC, animated: true)
     }
 }
