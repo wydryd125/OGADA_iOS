@@ -10,6 +10,6 @@ import Foundation
 
 struct SelectedTravel {
     static var shared: TravelInfo?
-    
+    static var key: String?
     
 }
