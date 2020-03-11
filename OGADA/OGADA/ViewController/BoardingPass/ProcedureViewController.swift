@@ -17,7 +17,7 @@ class ProcedureViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+       passPortAni()
         setUI()
         setConstraints()
 
@@ -69,6 +69,10 @@ class ProcedureViewController: BaseViewController {
         
     }
     //MARK: Action
-
+    func passPortAni() {
+        UIView.animate(withDuration: 1) {
+//            self.passportImage.
+        }
+    }
 
 }
