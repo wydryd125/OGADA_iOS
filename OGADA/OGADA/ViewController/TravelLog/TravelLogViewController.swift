@@ -10,18 +10,23 @@ import UIKit
 
 class TravelLogViewController: BaseViewController {
     
-    // budgetView 관련
-    private lazy var totalBudget: Int = (SelectedTravel.shared?.totalBudget)!
+    private let shared = SelectedTravel.shared!
+    private var dateArr = DateWorker().getDateLevel(start: SelectedTravel.shared!.departureDate, end: SelectedTravel.shared!.arrivalDate)
+    
+    private lazy var totalBudget: Int = self.shared.totalBudget //(SelectedTravel.shared?.totalBudget)!
+
+    // 오늘 환율
+    private var inputCash: Int = 0
+    
     private var krwCashBalance: Int = 600000
     private var krwCardBalance: Int = 400000
     private var foreignCashBalance: Int = 503
     private var foreignCardBalance: Int = 335
-    private let exchangeType: String = "USD"
-    private let termCount = 5
+    private lazy var exchangeType: String = self.shared.foreign.rawValue
     
     // post it 관련
     // 여러개 들어오 예정
-    private let day: Int = 1
+//    private let day: Int = 1
     private let date: String = "2020.01.01"
     private let foreignCash: Int = 100
     private let krwCash: Int = 120000
@@ -41,17 +46,28 @@ class TravelLogViewController: BaseViewController {
  
         view.backgroundColor = .background
         
+//        let dates = DateWorker.getDateLevel(<#T##self: DateWorker##DateWorker#>)
         print("------------/n seletedTravel")
         print(SelectedTravel.shared)
         
+        print(shared.departureDate, "type -> ", type(of: shared.departureDate))
+        print(shared.arrivalDate, "type -> ", type(of: shared.arrivalDate))
+        
+        print(dateArr)
         setUI()
         setConstraint()
         
     }
     
+    
     // MARK: - UI
     private func setUI() {
+        
+        budgetView.delegate = self
+        
         setFlowLaytou()
+        
+        
         backButton.tintColor = .lightGray
         
         collectionView.register(PostItCollectionViewCell.self, forCellWithReuseIdentifier: PostItCollectionViewCell.identifier)
@@ -111,14 +127,41 @@ class TravelLogViewController: BaseViewController {
 
     }
    
-
+    //MARK: - Action
+    
+    // 현금 추가 alert
+    private func addCashAlert() {
+        //오늘 환율
+        let addAlert = UIAlertController(title: "오늘의 환율", message: "환율 자리", preferredStyle: .alert)
+        
+        let addCashButton = UIAlertAction(title: "추가", style: .default) { _ in
+            var addValue = 0
+            if let textField = addAlert.textFields?.first, let inputValue = textField.text, let cash = Int(inputValue) {
+                addValue = cash
+            }
+            self.inputCash += addValue
+            print("addCashButton Click ->/n addValue = \(addValue) inputCash = \(self.inputCash)")
+        }
+        
+        addAlert.addAction(addCashButton)
+        
+        let cancelButton = UIAlertAction(title: "취소", style: .cancel)
+        addAlert.addAction(cancelButton)
+        
+        addAlert.addTextField {
+            $0.placeholder = "추가할 현금을 입력해주세요. \(self.exchangeType)"
+        }
+        
+        present(addAlert, animated: true)
+    }
+    
 }
 
 
 //MARK: - Datasource: CollectionView
 extension TravelLogViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return termCount
+        return dateArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -126,7 +169,7 @@ extension TravelLogViewController: UICollectionViewDataSource {
         
         cell.backgroundColor = .background
         
-        cell.configure(day: day, date: date, foreignType: exchangeType, foreignCash: foreignCash, krwCash: krwCash, foreignCard: foreignCard, krwCard: krwCard, foreignTotal: foreignTotal, krwTotal: krwtotal, backgroundImage: UIImage(named: "post it")!)
+        cell.configure(day: indexPath.row + 1, date: date, foreignType: exchangeType, foreignCash: foreignCash, krwCash: krwCash, foreignCard: foreignCard, krwCard: krwCard, foreignTotal: foreignTotal, krwTotal: krwtotal, backgroundImage: UIImage(named: "post it")!)
         
         return cell
     }
@@ -147,4 +190,14 @@ extension TravelLogViewController: UICollectionViewDelegateFlowLayout {
         dayPayRecordVC.modalPresentationStyle = .fullScreen
         present(dayPayRecordVC, animated: true)
     }
+}
+
+//MARK: - Delegate: BudgetView
+extension TravelLogViewController: BudgetViewDelegate {
+    
+    func didTabAddCashButton() {
+        addCashAlert()
+    }
+    
+    
 }
