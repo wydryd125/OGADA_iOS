@@ -214,11 +214,11 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 extension MainViewController: MainButtonCollectionViewCellDelegate {
     
     func didTapAddButton() {
-        let inputVC = InputInfoViewController()
-        navigationController?.pushViewController(inputVC, animated: true)
+//        let inputVC = InputInfoViewController()
+//        navigationController?.pushViewController(inputVC, animated: true)
         
-//        let addTravelVC = AddTravelViewController()
-//        navigationController?.pushViewController(addTravelVC, animated: true)
+        let addTravelVC = AddTravelViewController()
+        navigationController?.pushViewController(addTravelVC, animated: true)
 //        
     }
     
