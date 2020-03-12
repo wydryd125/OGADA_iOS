@@ -13,7 +13,12 @@ protocol CreateDayPayDelegate: class {
     func addPicture() -> ()
     
     func didTabCreateButton() -> ()
+    
+    func didTabCategoryButton() -> ()
+    
+    func didTabPayTypeButton() -> ()
 }
+
 class CreateDayPayView: UIView {
     
     weak var delegate: CreateDayPayDelegate?
@@ -67,12 +72,13 @@ class CreateDayPayView: UIView {
         let fiexedTextColor: UIColor = .darkGray
         let labelTextColor: UIColor = .darkGray
         
-        let labelColor: UIColor = .init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)//.lightGray
+        let labelColor: UIColor = .init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         
         let categoryLabelGesture = UITapGestureRecognizer(target: self, action: #selector(didTabCategory(sender:)))
         let payTypeLabelGesture = UITapGestureRecognizer(target: self, action: #selector(didTabPayType(sender:)))
         
         addPictureButton.setImage(UIImage(named: "CameraGray"), for: .normal)
+        addPictureButton.addTarget(self, action: #selector(didTabAddPictureButton(sender:)), for: .touchUpInside)
         addPictureButton.imageView?.contentMode = .scaleAspectFit
         addPictureButton.backgroundColor = .init(red: 0, green: 0, blue: 0, alpha: 0.2)
         addPictureButton.layer.cornerRadius = 10
@@ -121,6 +127,7 @@ class CreateDayPayView: UIView {
         
         createButton.backgroundColor = .theme
         createButton.setTitle("완료", for: .normal)
+        createButton.addTarget(self, action: #selector(didTabCreateButtont(sender:)), for: .touchUpInside)
         createButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
         createButton.setTitleColor(.white, for: .normal)
         createButton.layer.cornerRadius = 7
@@ -216,6 +223,7 @@ class CreateDayPayView: UIView {
     
     //MARK: - Action
     @objc private func didTabAddPictureButton(sender: UIButton) {
+        print("view didTabAddPicture")
         delegate?.addPicture()
     }
     
@@ -224,12 +232,15 @@ class CreateDayPayView: UIView {
     }
     
     @objc private func didTabCategory(sender: Any) {
+        print("-------------------")
         print("didTabCategory")
+        delegate?.didTabCategoryButton()
         
     }
     
     @objc private func didTabPayType(sender: Any) {
         print("didTabPayType")
+        delegate?.didTabPayTypeButton()
     }
 }
 
