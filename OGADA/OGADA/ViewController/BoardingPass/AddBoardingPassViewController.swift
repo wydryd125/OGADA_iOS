@@ -8,7 +8,8 @@
 
 import UIKit
 
-class AddBoardingPassViewController: UIViewController {
+class AddBoardingPassViewController: BaseViewController {
+    
     
     let addBordingPassButton = UIButton()
     let addLabel = UILabel()
@@ -17,6 +18,10 @@ class AddBoardingPassViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setConstraints()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
     }
     
     //MARK: UI
@@ -53,8 +58,8 @@ class AddBoardingPassViewController: UIViewController {
     
     //MARK: Action
     @objc func addButtonDidTap() {
-        let inputVC = InputInfoViewController()
-        navigationController?.pushViewController(inputVC, animated: true)
+//        let inputVC = InputInfoViewController()
+//        navigationController?.pushViewController(inputVC, animated: true)
         
     }
     
