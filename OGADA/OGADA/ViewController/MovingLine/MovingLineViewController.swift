@@ -13,66 +13,42 @@ import GoogleMaps
 class MovingLineViewController: UIViewController {
     
     private let movingeLineView = MovingLineView()
-    private var model = MovingLineModel()
+    private var model: MovingLineModel!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        assignModel()
         setUI()
         setConstraint()
-        assignModel()
     }
     
     // MARK: setModel
     
-    // 유저디폴츠에서 모델이 있으면 꺼내서 프로퍼티 할당을 해주고 아니면 만들어서 유저 디폴츠에 저장하고 프로파티 할당하는 함수 호출
+    // 모델 생성및 할당
     private func assignModel() {
         
-        guard let travelKey = SelectedTravel.key else { return }
-        let movingLineKey = travelKey + UserDefaultKeys.movingLineKey.rawValue
-        
-        if let modelData = UserDefaults.standard.data(forKey: movingLineKey) {
-            // 유저디폴츠에 데이터가 있는 경우
-            guard let model = try? JSONDecoder().decode(MovingLineModel.self, from: modelData) else { return }
-            
-            self.model = model
-            
-        } else { // 유저디폴츠에 데이터가 없는 경우
-            
-            self.model = createAndSaveModel(movingLineKey: movingLineKey)
-            
+        guard
+            let travelKey = SelectedTravel.key,
+            let selectedTravel = SelectedTravel.shared
+        else {
+            navigationController?.popViewController(animated: true)
+            return
         }
         
+        let modelKey = travelKey + UserDefaultKeys.movingLineKey.rawValue
+        self.model = MovingLineModel(
+            modelKey: modelKey,
+            startDate: selectedTravel.departureDate,
+            endDate: selectedTravel.arrivalDate)
     }
     
-    // 모델객체를 만들어서 유저 디폴츠에 저장하고 모델 객체 반환
-    private func createAndSaveModel(movingLineKey: String) -> MovingLineModel{
-        let model = MovingLineModel()
-        setDateLevel()
-        return model
-    }
-    
-    private func setDateLevel() {
-        guard
-            let selectedTravel = SelectedTravel.shared,
-            let key = SelectedTravel.key
-            else { return }
-        
-        let startDate = selectedTravel.departureDate
-        let endDate = selectedTravel.arrivalDate
-        
-        let dateWorker = DateWorker()
-        
-        let dateLevel = dateWorker.getDateLevel(start: startDate, end: endDate).map({
-            dateWorker.changeDateToString(date: $0, format: "yyyy MM dd")
-        })
-        dump(dateLevel)
-    }
     
     // MARK: UI
     private func setUI() {
         view.addSubview(movingeLineView)
         navigationController?.navigationBar.isHidden = false
+        
+        
         movingeLineView.tableView.dataSource = self
         movingeLineView.tableView.delegate = self
         
@@ -110,6 +86,10 @@ class MovingLineViewController: UIViewController {
         navigationController?.pushViewController(addPlacePointVC, animated: true)
     }
     
+    @objc func didTapChangeDateButton() {
+        
+    }
+    
     
 }
 
@@ -118,14 +98,16 @@ class MovingLineViewController: UIViewController {
 
 extension MovingLineViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        model.getPlaceList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let place = model.getPlace(index: indexPath.row)
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: PlacePointCell.identifire, for: indexPath) as! PlacePointCell
         
-        cell.configure(flow: String(indexPath.row + 1), title: "타이틀", address: "망원로 11")
+        cell.configure(flow: "\(indexPath.row + 1)", title: place.name, address: place.address, isVisit: place.isVisit)
         
         return cell
     }
@@ -139,8 +121,6 @@ extension MovingLineViewController: UITableViewDelegate {
 
 extension MovingLineViewController: AddPlacePointViewControllerDelegate {
     func completeAddPlaces(position: Int, placeList: [Place]) {
-        
-        
         
     }
     

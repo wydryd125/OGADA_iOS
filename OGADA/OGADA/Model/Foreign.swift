@@ -9,7 +9,7 @@
 import Foundation
 
 
-enum Foreign: String {
+enum Foreign: String, Codable {
     case australia = "AUD"
     case brazil = "BRL"
     case canada = "CAD"
@@ -63,13 +63,56 @@ enum Foreign: String {
         case .USA:
             return "미국"
         case .vietnam:
-            return "배트남"
+            return "베트남"
         }
+        
+        
+    }
+    
+    static func getForegin(foregin: String) -> Foreign? {
+        
+        switch foregin {
+        case "호주":
+            return .australia
+        case "브라질":
+            return .brazil
+        case "캐나다":
+            return .canada
+        case "스위스":
+            return .swizerland
+        case "중국":
+            return .china
+        case "유럽":
+            return .europe
+        case "영국":
+            return .england
+        case "홍콩":
+            return .hongkong
+        case "인도":
+            return .india
+        case "일본":
+            return .japan
+        case "한국":
+            return .korea
+        case "멕시코":
+            return .maxico
+        case "러시아":
+            return .russia
+        case "태국":
+            return .thailand
+        case "대만":
+            return .taiwan
+        case "미국":
+            return .USA
+        case "베트남":
+            return .vietnam
+        default:
+            return nil
     }
     
 }
 
-
+}
 
 
 
