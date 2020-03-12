@@ -1,14 +1,14 @@
 //
-//  TravelLogView.swift
+//  CreateDayPayPickerView.swift
 //  OGADA
 //
-//  Created by YoujinMac on 2020/03/09.
+//  Created by YoujinMac on 2020/03/12.
 //  Copyright © 2020 didwndckd. All rights reserved.
 //
 
 import UIKit
 
-class TravelLogView: UIView {
+class CreateDayPayPickerView: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.
