@@ -277,6 +277,7 @@ class BoardingPassViewController: BaseViewController {
     @objc func procedureButtonDidTap() {
         print("보기버튼눌러")
         let procedureVC = ProcedureViewController()
+        procedureVC.terno = 2
         navigationController?.pushViewController(procedureVC, animated: true)
 
         
