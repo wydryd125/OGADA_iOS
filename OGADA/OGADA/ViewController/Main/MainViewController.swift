@@ -149,6 +149,7 @@ extension MainViewController: UICollectionViewDelegate {
         default:
 //            let movingLingVC = MovingLineViewController()
 //            navigationController?.pushViewController(movingLingVC, animated: false)
+//            keys
             pushTravelController()
             print("default")
         }
