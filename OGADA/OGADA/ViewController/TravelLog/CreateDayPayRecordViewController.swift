@@ -10,6 +10,7 @@ import UIKit
 
 class CreateDayPayRecordViewController: BaseViewController {
     
+    let category: String = ""
     
     private let exchangeType = "USD"
     
@@ -69,5 +70,8 @@ extension CreateDayPayRecordViewController: CreateDayPayDelegate {
         print("addPicture")
     }
     
-    
+//    func categoryText() -> String {
+//        print("categoryText()")
+//        return category
+//    }
 }

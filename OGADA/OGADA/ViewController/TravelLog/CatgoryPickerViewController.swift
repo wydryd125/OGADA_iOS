@@ -43,6 +43,18 @@ extension DayPayRecordCatgoryPickerViewController: CreateDayPayPickerDeleget {
     
     func didtabOkButton() {
         print("ok BUtton")
+        /*
+                guard let pvc = self.presentingViewController else { return }
+
+                self.dismiss(animated: true) {
+                  pvc.present(SecondViewController(), animated: true, completion: nil)
+                }
+        */
+        guard let presentedVC = self.presentedViewController else { return }
+        
+        self.dismiss(animated: true) {
+//            presentedVC.category
+        }
     }
     
     
