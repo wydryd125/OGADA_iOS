@@ -12,7 +12,7 @@ class CreateDayPayRecordViewController: BaseViewController {
     
     let category: String = ""
     
-    private let exchangeType = "USD"
+    private let exchangeType = SelectedTravel.shared!.foreign.rawValue
     
     private lazy var createView = CreateDayPayView(frame: view.frame, exchangeType: exchangeType)
     
