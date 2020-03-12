@@ -12,6 +12,8 @@ import MapKit
 
 class MovingLineView: UIView {
     
+    typealias Zoom = (zoomLatitude: Double, zoomLongitude: Double)
+    
     let mapView = MKMapView()
     let tableView = UITableView()
     
@@ -160,7 +162,78 @@ class MovingLineView: UIView {
         
     }
     
-    func hiddenView(view: UIView) {
+    // 데이터 변경사항 테이블뷰, 맵뷰에 적용 (어노테이션들의 중간 지점으로 이동)
+    func reLoadDatas(placeList: [Place]) {
+        
+        tableView.reloadData()
+        mapView.removeAnnotations(mapView.annotations)
+        
+        guard !placeList.isEmpty else { return }
+        
+        placeList.forEach({
+            (place) in
+            let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+            addAnnotation(name: place.name, address: place.address, coordinate: coordinate)
+        })
+        
+        let center = getCenter(placeList: placeList)
+        let zoom = getZoom(placeList: placeList)
+        
+        setResion(latitude: center.latitude, longitude: center.longitude, latZoom: zoom.zoomLatitude, logZoom: zoom.zoomLongitude)
+        
+    }
+    
+    // 중심좌표 및 줌 반환 메서드
+    private func getCenter(placeList: [Place]) -> CLLocationCoordinate2D {
+        let latitude = placeList.reduce(0.0, { $0 + $1.latitude } ) / Double(placeList.count)
+        let longitude = placeList.reduce(0.0, { $0 + $1.longitude } ) / Double(placeList.count)
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        return coordinate
+    }
+    
+    private func getZoom(placeList: [Place]) -> Zoom {
+        var latZoom = 0.001
+        var logZoom = 0.001
+        
+        
+        let sortedLatitude = placeList.sorted(by: { (before, next) in
+            before.latitude < next.latitude
+        })
+        
+        let sortedLongitude = placeList.sorted(by: { (before, next) in
+            before.longitude < next.longitude
+        })
+        
+        
+        if let maximumLatitude = sortedLatitude.last?.latitude, let minimumLatitude = sortedLatitude.first?.latitude {
+            latZoom = maximumLatitude - minimumLatitude
+        }
+        if let maximumLongitude = sortedLongitude.last?.longitude, let minimumLongitude = sortedLongitude.first?.longitude {
+            logZoom = maximumLongitude - minimumLongitude
+        }
+        
+        return (latZoom, logZoom)
+    }
+    
+    // 맵뷰 시점 이동
+    private func setResion(latitude: Double, longitude: Double, latZoom: Double, logZoom: Double) {
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let span = MKCoordinateSpan(latitudeDelta: latZoom, longitudeDelta: logZoom)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
+    
+    // 맵뷰 어노테이션 찍기
+    private func addAnnotation(name: String?, address: String?, coordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.title = name
+        annotation.subtitle = address
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+    }
+    
+    
+    private func hiddenView(view: UIView) {
         if !view.isHidden {
             UIView.animate(withDuration: 0.2, animations: {
                 view.transform = .init(scaleX: 0.0001, y: 1)
@@ -171,7 +244,7 @@ class MovingLineView: UIView {
         
     }
     
-    func displayView(view: UIView) {
+    private func displayView(view: UIView) {
         if view.isHidden {
             view.isHidden = false
             UIView.animate(withDuration: 0.2, animations: {

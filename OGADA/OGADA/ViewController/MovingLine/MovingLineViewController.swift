@@ -20,6 +20,7 @@ class MovingLineViewController: UIViewController {
         assignModel()
         setUI()
         setConstraint()
+        movingeLineView.reLoadDatas(placeList: model.getPlaceList())
     }
     
     // MARK: setModel
@@ -62,6 +63,16 @@ class MovingLineViewController: UIViewController {
             action: #selector(popAction(sender:)),
             for: .touchUpInside)
         
+        movingeLineView.beforeDayButton.addTarget(
+            self,
+            action: #selector(didTapBeforeButton(sender:)),
+            for: .touchUpInside)
+        
+        movingeLineView.nextDayButton.addTarget(
+            self,
+            action: #selector(didTapNextButtton(sender:)),
+            for: .touchUpInside)
+        
         movingeLineView.configure(dateLevel: model.getDateToString(), position: model.currentDateLevel, maximunPosition: model.getPlaceList().count - 1)
     }
     
@@ -84,13 +95,40 @@ class MovingLineViewController: UIViewController {
     
     // + 버튼 누르면 새로운 포인트 추가하는 버튼
     @objc private func didTapAddPlacePointButton(sender: UIButton) {
-        let addPlacePointVC = AddPlacePointViewController(position: 1, placeList: [])
+//        print(model.currentDateLevel)
+        let addPlacePointVC = AddPlacePointViewController(position: model.currentDateLevel, placeList: model.getPlaceList())
         addPlacePointVC.delegate = self
         navigationController?.pushViewController(addPlacePointVC, animated: true)
     }
     
-    @objc func didTapChangeDateButton(sender: UIButton) {
-        print(#function)
+    // 일차 오른쪽 버튼 클릭 -> 포지션값을 바꾸고 뷰 새로 세팅
+    @objc func didTapNextButtton(sender: UIButton) {
+//        print(#function)
+        let maximumPosition = model.dateList.count - 1
+        guard model.currentDateLevel < maximumPosition else { return }
+        
+        model.currentDateLevel += 1
+        let dateLevel = model.getDateToString()
+        let position = model.currentDateLevel
+        
+        movingeLineView.configure(dateLevel: dateLevel, position: position, maximunPosition: maximumPosition)
+        movingeLineView.reLoadDatas(placeList: model.getPlaceList())
+        
+        
+    }
+    
+    // 일차 왼쪽 버튼 클릭 -> 포지션값을 바꾸고 뷰 새로 세팅
+    @objc func didTapBeforeButton(sender: UIButton) {
+//        print(#function)
+        let maximumPosition = model.dateList.count - 1
+        guard model.currentDateLevel > 0 else { return }
+        
+        model.currentDateLevel -= 1
+        let dateLevel = model.getDateToString()
+        let position = model.currentDateLevel
+        
+        movingeLineView.configure(dateLevel: dateLevel, position: position, maximunPosition: maximumPosition)
+        movingeLineView.reLoadDatas(placeList: model.getPlaceList())
     }
     
     
@@ -124,7 +162,10 @@ extension MovingLineViewController: UITableViewDelegate {
 
 extension MovingLineViewController: AddPlacePointViewControllerDelegate {
     func completeAddPlaces(position: Int, placeList: [Place]) {
-        
+//        print(#function)
+//        print(placeList)
+        model.upDatePlaceList(position: position, placeList: placeList)
+        movingeLineView.reLoadDatas(placeList: model.getPlaceList())
     }
     
     

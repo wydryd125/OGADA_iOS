@@ -12,7 +12,7 @@ import Foundation
 struct MovingLineModel: Codable {
     var currentDateLevel: Int
     private var placeList: [[Place]]
-    private let dateList: [Date]
+    let dateList: [Date]
     
     // 생성시에 유저디폴츠에 데이터가 있는지 확인하고 없으면 기본값을 만들고 저장
     init(modelKey: String, startDate: Date, endDate: Date) {
@@ -30,14 +30,24 @@ struct MovingLineModel: Codable {
                 let placeList: [Place] = []
                 return placeList
             })
-            saveObject(key: modelKey)
+            saveObject()
         }
     }
     
+    mutating func upDatePlaceList(position: Int, placeList: [Place]) {
+//        print(placeList)
+//        print(position)
+        self.placeList[position] = placeList
+        saveObject()
+//        print(self.placeList)
+    }
+    
     // 자기자신을 유저 디폴츠에 저장
-    func saveObject(key: String) {
+    private func saveObject() {
+        guard let travelKey = SelectedTravel.key else { return }
+        let modelKey = travelKey + UserDefaultKeys.movingLineKey.rawValue
         guard let saveData = try? JSONEncoder().encode(self) else { return }
-        UserDefaults.standard.set(saveData, forKey: key)
+        UserDefaults.standard.set(saveData, forKey: modelKey)
     }
     
     func getPlaceList() -> [Place] {
@@ -50,8 +60,8 @@ struct MovingLineModel: Codable {
     
     func getDateToString() -> String {
         let date = dateList[currentDateLevel]
-        let dateToString = DateWorker().changeDateToString(date: date, format: "M / d")
-        let result = dateToString + "  \(currentDateLevel + 1) 일차"
+        let dateToString = DateWorker().changeDateToString(date: date, format: "M/d")
+        let result = dateToString + "  (\(currentDateLevel + 1) 일차)"
         return result
     }
     
