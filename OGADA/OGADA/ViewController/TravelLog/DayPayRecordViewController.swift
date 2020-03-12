@@ -49,6 +49,7 @@ class DayPayRecordViewController: UIViewController {
     
 //MARK: - UI
     private func setUI() {
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         
         headerView.delegate = self

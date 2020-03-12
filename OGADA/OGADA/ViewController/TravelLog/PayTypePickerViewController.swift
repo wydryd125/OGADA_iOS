@@ -9,22 +9,41 @@
 import UIKit
 
 class DayPayRecordPayTypePickerViewController: UIViewController {
-
+    
+    private let payTypeArr = [String]()
+    private lazy var customView = CreateDayPayPickerView(frame: view.frame, pickerArray: PayType.cash.allCase())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        
+        setUI()
+        //        setConstraint()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    private func setUI() {
+        customView.delegate = self
+        
+        customView.frame = view.frame
+        view.addSubview(customView)
     }
-    */
+    //    private func setConstraint() {
+    //
+    //    }
+    
+}
 
+//MARK: extension
+
+extension DayPayRecordPayTypePickerViewController: CreateDayPayPickerDeleget {
+    func didtabCancelButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func didtabOkButton() {
+        print("ok BUtton")
+    }
+    
+    
 }

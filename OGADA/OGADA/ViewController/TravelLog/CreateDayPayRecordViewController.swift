@@ -47,6 +47,18 @@ class CreateDayPayRecordViewController: BaseViewController {
 
 //MARK: createDayPayRecord Delegate
 extension CreateDayPayRecordViewController: CreateDayPayDelegate {
+    func didTabCategoryButton() {
+        let categoryVC = DayPayRecordCatgoryPickerViewController()
+        categoryVC.modalPresentationStyle = .overFullScreen
+        present(categoryVC, animated: true)
+    }
+    
+    func didTabPayTypeButton() {
+        let payTypeVC = DayPayRecordPayTypePickerViewController()
+        payTypeVC.modalPresentationStyle = .overFullScreen
+        present(payTypeVC, animated: true)
+    }
+    
     func didTabCreateButton() {
         // 완성!
         print("didTabCreateButton")
