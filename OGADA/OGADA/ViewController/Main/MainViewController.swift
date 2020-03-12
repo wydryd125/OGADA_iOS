@@ -37,6 +37,8 @@ class MainViewController: UIViewController {
         
         guard let UDkeys = UserDefaults.standard.object(forKey: UserDefaultKeys.travelKey.rawValue) as? [String] else { return }
         
+        self.travels.removeAll()
+        
         for key in UDkeys {
             guard let travelData = UserDefaults.standard.data(forKey: key) else { break }
             guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { break }
@@ -145,6 +147,7 @@ extension MainViewController: UICollectionViewDelegate {
         default:
 //            let movingLingVC = MovingLineViewController()
 //            navigationController?.pushViewController(movingLingVC, animated: false)
+//            keys
             pushTravelController()
             print("default")
         }
