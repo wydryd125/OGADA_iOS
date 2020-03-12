@@ -20,6 +20,8 @@ class MovingLineViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setConstraint()
+        print(SelectedTravel.shared)
+        print(SelectedTravel.key)
     }
     
     // MARK: setModel
