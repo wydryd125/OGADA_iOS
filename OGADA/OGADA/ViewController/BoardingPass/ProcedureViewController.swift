@@ -8,25 +8,27 @@
 
 import UIKit
 
-class ProcedureViewController: BaseViewController {
+class ProcedureViewController: BaseViewController, XMLParserDelegate {
+
     
     private let passportImage = UIImageView()
     private let backgroundView = UIView()
     private let terminalImage = UIImageView()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       passPortAni()
+        
         setUI()
         setConstraints()
-
+        
     }
+
     //MARK: UI
     private func setUI() {
         
         view.backgroundColor = .theme
-    
+        
         backgroundView.backgroundColor = .white
         backgroundView.layer.cornerRadius = 16
         backgroundView.layer.shadowOpacity = 0.3
@@ -50,7 +52,7 @@ class ProcedureViewController: BaseViewController {
         [backgroundView,terminalImage,passportImage].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-
+        
         backgroundView.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
         backgroundView.centerYAnchor.constraint(equalTo: guide.centerYAnchor, constant: padding * 4).isActive = true
         backgroundView.widthAnchor.constraint(equalTo: guide.widthAnchor, multiplier: 0.9).isActive = true

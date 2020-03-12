@@ -103,10 +103,16 @@ class MainCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func configure(travel: String, departureDate: String, arrivalDate: String, sutitle: String) {
+    func configure(travel: String, departureDate: Date, arrivalDate: Date, sutitle: String) {
+ 
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let departureDateString = formatter.string(from: departureDate)
+        let arrivalDateString = formatter.string(from: arrivalDate)
+        
         travelLabel.text = travel
-        departuredateLabel.text = departureDate
-        arrivaldateLabel.text = arrivalDate
+        departuredateLabel.text = departureDateString
+        arrivaldateLabel.text = arrivalDateString
         customTitleLabel.text = sutitle
     }
 }

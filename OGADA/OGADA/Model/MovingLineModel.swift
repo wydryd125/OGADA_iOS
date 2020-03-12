@@ -12,6 +12,6 @@ import Foundation
 struct MovingLineModel: Codable {
     var currentDateLevel: Int = 0
     private var placeList: [[Place]] = []
-    private let dateList: [String] = []
+    private let dateList: [Date] = []
     
 }
