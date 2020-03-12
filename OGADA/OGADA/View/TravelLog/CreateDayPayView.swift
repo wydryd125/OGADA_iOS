@@ -17,6 +17,8 @@ protocol CreateDayPayDelegate: class {
     func didTabCategoryButton() -> ()
     
     func didTabPayTypeButton() -> ()
+    
+//    func categoryText() -> String
 }
 
 class CreateDayPayView: UIView {
