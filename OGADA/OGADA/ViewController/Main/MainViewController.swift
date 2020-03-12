@@ -12,20 +12,19 @@ class MainViewController: UIViewController {
     
     private var travels: [TravelInfo] = []
     private var travelKeys: [String] = []
-   
     private enum UI {
-           static let itemsInLine: CGFloat = 2
-           static let linesOnScreen: CGFloat = 2
-           static let itemSpacing: CGFloat = 10.0
-           static let lineSpacing: CGFloat = 10.0
-           static let edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-       }
+        static let itemsInLine: CGFloat = 2
+        static let linesOnScreen: CGFloat = 2
+        static let itemSpacing: CGFloat = 10.0
+        static let lineSpacing: CGFloat = 10.0
+        static let edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
     
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -58,7 +57,7 @@ class MainViewController: UIViewController {
     private func setUI() {
         
         navigationController?.navigationBar.isHidden = true
-
+        
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.identifier)
         collectionView.register(MainButtonCollectionViewCell.self, forCellWithReuseIdentifier: MainButtonCollectionViewCell.identifier)
         collectionView.backgroundColor = .background
@@ -81,6 +80,7 @@ class MainViewController: UIViewController {
     private func pushTravelController() {
         let tabBarController = UITabBarController()
         
+        
         let boardingPassVC = BoardingPassViewController()
         boardingPassVC.tabBarItem.title = "보딩패스"
         
@@ -95,10 +95,10 @@ class MainViewController: UIViewController {
         
         
         tabBarController.viewControllers = [
-        boardingPassVC,
-        movingLineVC,
-        travelLogVC,
-        otherVC
+            boardingPassVC,
+            movingLineVC,
+            travelLogVC,
+            otherVC
         ]
         
         
@@ -110,7 +110,7 @@ class MainViewController: UIViewController {
         
         
     }
-
+    
 }
 
 //MARK: extension
@@ -119,7 +119,7 @@ extension MainViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return travels.count + 1
     }
-
+    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch indexPath.row {
@@ -127,7 +127,7 @@ extension MainViewController: UICollectionViewDataSource {
             let buttonCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: MainButtonCollectionViewCell.identifier,
                 for: indexPath
-            ) as! MainButtonCollectionViewCell
+                ) as! MainButtonCollectionViewCell
             buttonCell.delegate = self
             return buttonCell
             
@@ -140,7 +140,7 @@ extension MainViewController: UICollectionViewDataSource {
             let travel = travels[indexPath.row - 1]
             
             cell.configure(travel: travel.nation, departureDate: travel.departureDate, arrivalDate: travel.arrivalDate , sutitle: travel.subTitle)
-
+            
             return cell
         }
     }
@@ -191,7 +191,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { fatalError() }
         
         let isVertical = layout.scrollDirection == .vertical
-
+        
         let horizontalSpacing = (isVertical ? itemSpacing : lineSpacing) + horizontalInset
         let verticalSpacing = (isVertical ? lineSpacing : itemSpacing) + verticalInset
         
@@ -210,13 +210,15 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     
 }
 extension MainViewController: MainButtonCollectionViewCellDelegate {
- 
+    
     func didTapAddButton() {
-
-        let addTravelVC = AddTravelViewController()
-        navigationController?.pushViewController(addTravelVC, animated: true)
-       
+        let inputVC = InputInfoViewController()
+        navigationController?.pushViewController(inputVC, animated: true)
+        
+//        let addTravelVC = AddTravelViewController()
+//        navigationController?.pushViewController(addTravelVC, animated: true)
+//        
     }
-
+    
 }
 
