@@ -56,10 +56,13 @@ class MovingLineViewController: UIViewController {
             self,
             action: #selector(didTapAddPlacePointButton(sender:)),
             for: .touchUpInside)
+        
         movingeLineView.backButton.addTarget(
             self,
             action: #selector(popAction(sender:)),
             for: .touchUpInside)
+        
+        movingeLineView.configure(dateLevel: model.getDateToString(), position: model.currentDateLevel, maximunPosition: model.getPlaceList().count - 1)
     }
     
     private func setConstraint() {
@@ -86,8 +89,8 @@ class MovingLineViewController: UIViewController {
         navigationController?.pushViewController(addPlacePointVC, animated: true)
     }
     
-    @objc func didTapChangeDateButton() {
-        
+    @objc func didTapChangeDateButton(sender: UIButton) {
+        print(#function)
     }
     
     
