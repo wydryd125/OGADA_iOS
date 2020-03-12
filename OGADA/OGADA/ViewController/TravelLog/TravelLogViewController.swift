@@ -9,9 +9,9 @@
 import UIKit
 
 class TravelLogViewController: BaseViewController {
-
+    
     // budgetView 관련
-    private var totalBudget: Int = 1000000
+    private lazy var totalBudget: Int = (SelectedTravel.shared?.totalBudget)!
     private var krwCashBalance: Int = 600000
     private var krwCardBalance: Int = 400000
     private var foreignCashBalance: Int = 503
@@ -40,7 +40,10 @@ class TravelLogViewController: BaseViewController {
         super.viewDidLoad()
  
         view.backgroundColor = .background
-
+        
+        print("------------/n seletedTravel")
+        print(SelectedTravel.shared)
+        
         setUI()
         setConstraint()
         
