@@ -62,7 +62,7 @@ class CreateDayPayView: UIView {
         
         let fiexedTextFont: UIFont = .systemFont(ofSize: 16)
         let labelTextFont: UIFont = .systemFont(ofSize: 14)
-        let setButtonFont: UIFont = .boldSystemFont(ofSize: 14)
+        let setButtonFont: UIFont = .boldSystemFont(ofSize: 12)
         
         let fiexedTextColor: UIColor = .darkGray
         let labelTextColor: UIColor = .darkGray
@@ -137,7 +137,7 @@ class CreateDayPayView: UIView {
         
         let widthMargin: CGFloat = 65
         let hightMargin: CGFloat = 40
-        let widthPadding: CGFloat = 16
+        let widthPadding: CGFloat = 12
         let hightPadding: CGFloat = 24
         
         let pictureSize: CGFloat = 200
@@ -146,7 +146,7 @@ class CreateDayPayView: UIView {
 
         
         let fieldHegiht: CGFloat = 30
-        let buttonWidth: CGFloat = 70
+        let buttonWidth: CGFloat = 60
         let createButtonWidth: CGFloat = fieldHegiht * 3
         
         NSLayoutConstraint.activate([
