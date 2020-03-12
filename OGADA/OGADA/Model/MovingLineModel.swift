@@ -26,8 +26,9 @@ struct MovingLineModel: Codable {
             self.currentDateLevel = 0
             let dateList = DateWorker().getDateLevel(start: startDate, end: endDate)
             self.dateList = dateList
-            self.placeList = dateList.map({
-                
+            self.placeList = dateList.map({ _ in
+                let placeList: [Place] = []
+                return placeList
             })
             saveObject(key: modelKey)
         }
@@ -40,7 +41,8 @@ struct MovingLineModel: Codable {
     }
     
     func getPlaceList() -> [Place] {
-        placeList[currentDateLevel]
+//        placeList[currentDateLevel]
+        []
     }
     
     func getPlace(index: Int) -> Place{
