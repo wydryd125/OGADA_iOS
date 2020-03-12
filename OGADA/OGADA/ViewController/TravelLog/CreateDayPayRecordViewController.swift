@@ -10,8 +10,9 @@ import UIKit
 
 class CreateDayPayRecordViewController: BaseViewController {
     
+    let category: String = ""
     
-    private let exchangeType = "USD"
+    private let exchangeType = SelectedTravel.shared!.foreign.rawValue
     
     private lazy var createView = CreateDayPayView(frame: view.frame, exchangeType: exchangeType)
     
@@ -47,6 +48,18 @@ class CreateDayPayRecordViewController: BaseViewController {
 
 //MARK: createDayPayRecord Delegate
 extension CreateDayPayRecordViewController: CreateDayPayDelegate {
+    func didTabCategoryButton() {
+        let categoryVC = DayPayRecordCatgoryPickerViewController()
+        categoryVC.modalPresentationStyle = .overFullScreen
+        present(categoryVC, animated: true)
+    }
+    
+    func didTabPayTypeButton() {
+        let payTypeVC = DayPayRecordPayTypePickerViewController()
+        payTypeVC.modalPresentationStyle = .overFullScreen
+        present(payTypeVC, animated: true)
+    }
+    
     func didTabCreateButton() {
         // 완성!
         print("didTabCreateButton")
@@ -57,5 +70,8 @@ extension CreateDayPayRecordViewController: CreateDayPayDelegate {
         print("addPicture")
     }
     
-    
+//    func categoryText() -> String {
+//        print("categoryText()")
+//        return category
+//    }
 }

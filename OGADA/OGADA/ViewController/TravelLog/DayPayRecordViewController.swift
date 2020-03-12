@@ -14,10 +14,12 @@ class DayPayRecordViewController: UIViewController {
     private lazy var headerView = DayPayRecordHeaderView(day: day, date: date)
     private let createButton = UIButton()
     
+    
+    private lazy var exchangeType:String = SelectedTravel.shared!.foreign.rawValue
+
     // Header
     let day:Int = 1
     let date:String = "2020.01.03"
-    let exchangeType = "USD"
     
     // Footer
     let foreignCash: Int = 320
@@ -26,7 +28,6 @@ class DayPayRecordViewController: UIViewController {
     let krwCard:Int = 235000
     lazy var foreignTotal: Int = foreignCash + foreignCard
     lazy var krwTotal: Int = krwCash + krwCard
-    let exchnageType:String = "USD"
     
     // cell dummy Data
     let cellCount = 5
@@ -49,6 +50,7 @@ class DayPayRecordViewController: UIViewController {
     
 //MARK: - UI
     private func setUI() {
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         
         headerView.delegate = self
