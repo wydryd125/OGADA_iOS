@@ -62,7 +62,7 @@ class MovingLineView: UIView {
         
         dateLabel.textColor = .text
         dateLabel.textAlignment = .center
-        dateLabel.text = "3/1  (1일차)"
+//        dateLabel.text = "3/1  (1일차)"
         
         beforeDayButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         beforeDayButton.tintColor = .black
@@ -140,6 +140,45 @@ class MovingLineView: UIView {
     }
     
     
+    //MARK: Action
+    
+    func configure(dateLevel: String, position: Int, maximunPosition: Int) {
+        
+        switch position {
+        case 0:
+            hiddenView(view: beforeDayButton)
+            displayView(view: nextDayButton)
+        case maximunPosition:
+            hiddenView(view: nextDayButton)
+            displayView(view: beforeDayButton)
+        default:
+            displayView(view: nextDayButton)
+            displayView(view: beforeDayButton)
+        }
+        
+        dateLabel.text = dateLevel
+        
+    }
+    
+    func hiddenView(view: UIView) {
+        if !view.isHidden {
+            UIView.animate(withDuration: 0.2, animations: {
+                view.transform = .init(scaleX: 0.0001, y: 1)
+            }, completion: { _ in
+                view.isHidden = true
+            })
+        }
+        
+    }
+    
+    func displayView(view: UIView) {
+        if view.isHidden {
+            view.isHidden = false
+            UIView.animate(withDuration: 0.2, animations: {
+                view.transform = .identity
+            })
+        }
+    }
     
     
     

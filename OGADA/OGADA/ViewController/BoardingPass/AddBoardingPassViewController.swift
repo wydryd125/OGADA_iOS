@@ -11,6 +11,7 @@ import UIKit
 class AddBoardingPassViewController: BaseViewController {
     
     
+    
     let addBordingPassButton = UIButton()
     let addLabel = UILabel()
     
