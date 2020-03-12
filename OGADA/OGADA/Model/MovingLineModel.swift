@@ -41,8 +41,7 @@ struct MovingLineModel: Codable {
     }
     
     func getPlaceList() -> [Place] {
-//        placeList[currentDateLevel]
-        []
+        return placeList[currentDateLevel]
     }
     
     func getPlace(index: Int) -> Place{
