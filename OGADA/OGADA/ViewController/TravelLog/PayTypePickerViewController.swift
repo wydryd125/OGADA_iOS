@@ -18,7 +18,6 @@ class DayPayRecordPayTypePickerViewController: UIViewController {
         
         
         setUI()
-        //        setConstraint()
     }
     
     
@@ -28,10 +27,7 @@ class DayPayRecordPayTypePickerViewController: UIViewController {
         customView.frame = view.frame
         view.addSubview(customView)
     }
-    //    private func setConstraint() {
-    //
-    //    }
-    
+
 }
 
 //MARK: extension

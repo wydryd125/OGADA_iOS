@@ -18,7 +18,6 @@ class DayPayRecordCatgoryPickerViewController: UIViewController {
         
         
         setUI()
-//        setConstraint()
     }
     
 
@@ -28,9 +27,7 @@ class DayPayRecordCatgoryPickerViewController: UIViewController {
         customView.frame = view.frame
         view.addSubview(customView)
     }
-//    private func setConstraint() {
-//
-//    }
+
 
 }
 
