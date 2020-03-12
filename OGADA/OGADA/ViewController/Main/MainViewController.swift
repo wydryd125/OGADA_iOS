@@ -11,6 +11,7 @@ import UIKit
 class MainViewController: UIViewController {
     
     private var travels: [TravelInfo] = []
+    private var travelKeys: [String] = []
    
     private enum UI {
            static let itemsInLine: CGFloat = 2
@@ -35,8 +36,12 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        SelectedTravel.shared = nil
+        SelectedTravel.key = nil
+        
         guard let UDkeys = UserDefaults.standard.object(forKey: UserDefaultKeys.travelKey.rawValue) as? [String] else { return }
         
+        self.travelKeys = UDkeys
         self.travels.removeAll()
         
         for key in UDkeys {
@@ -150,8 +155,13 @@ extension MainViewController: UICollectionViewDelegate {
 //            let movingLingVC = MovingLineViewController()
 //            navigationController?.pushViewController(movingLingVC, animated: false)
 //            keys
+            let key = travelKeys[indexPath.row - 1]
+            guard let travelData = UserDefaults.standard.data(forKey: key) else { return }
+            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { return }
+            SelectedTravel.shared = travel
+            SelectedTravel.key = key
             pushTravelController()
-            print("default")
+//            print("default")
         }
     }
 }
