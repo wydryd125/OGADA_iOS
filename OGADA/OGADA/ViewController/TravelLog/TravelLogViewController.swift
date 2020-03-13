@@ -95,7 +95,7 @@ class TravelLogViewController: UIViewController/*BaseViewController*/ {
 //        navigationItem.backBarButtonItem?.tintColor = .white
 //        navigationController?.navigationItem.backBarButtonItem?.tintColor = .white
         
-        navigationController?.navigationBar.tintColor = .darkGray
+        navigationController?.navigationBar.tintColor = .lightGray
         
         view.addSubview(budgetView)
         view.addSubview(collectionView)

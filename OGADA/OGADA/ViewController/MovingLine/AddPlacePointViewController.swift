@@ -50,18 +50,22 @@ class AddPlacePointViewController: UIViewController {
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        print(model.placeList)
-        delegate?.completeAddPlaces(position: model.position, placeList: model.placeList)
-        
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+////        print(model.placeList)
+//        delegate?.completeAddPlaces(position: model.position, placeList: model.placeList)
+//
+//    }
     
     
     
     //MARK: UI
     
     private func setUI() {
+        
+        let completeButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(popAction(sender:)))
+        navigationItem.leftBarButtonItem = completeButton
+        navigationController?.navigationBar.tintColor = .text
         
         let searchBar = searchController.searchBar
         
@@ -114,8 +118,10 @@ class AddPlacePointViewController: UIViewController {
     
     //MARK: Action
     
-    @objc private func popAction(sender: UIButton) {
+    @objc private func popAction(sender: UIBarButtonItem) {
+        delegate?.completeAddPlaces(position: model.position, placeList: model.placeList)
         navigationController?.popViewController(animated: true)
+        
     }
     
     // 검색 완료시 맵뷰 검색장소로 이동

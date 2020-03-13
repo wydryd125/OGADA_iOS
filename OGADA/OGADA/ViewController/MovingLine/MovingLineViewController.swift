@@ -60,10 +60,6 @@ class MovingLineViewController: UIViewController {
             action: #selector(didTapAddPlacePointButton(sender:)),
             for: .touchUpInside)
         
-        movingeLineView.backButton.addTarget(
-            self,
-            action: #selector(popAction(sender:)),
-            for: .touchUpInside)
         
         movingeLineView.beforeDayButton.addTarget(
             self,
@@ -90,10 +86,6 @@ class MovingLineViewController: UIViewController {
     
     // MARK: Action
     
-    // 메인화면으로 돌아가는 함수
-    @objc private func popAction(sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-    }
     
     // + 버튼 누르면 새로운 포인트 추가하는 버튼
     @objc private func didTapAddPlacePointButton(sender: UIButton) {
