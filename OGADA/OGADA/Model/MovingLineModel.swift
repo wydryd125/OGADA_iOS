@@ -65,6 +65,16 @@ struct MovingLineModel: Codable {
         return result
     }
     
+    mutating func updatePlace(index: Int, place: Place) {
+        placeList[currentDateLevel][index] = place
+        saveObject()
+    }
+    
+    mutating func deletePlace(index: Int) {
+        placeList[currentDateLevel].remove(at: index)
+        saveObject()
+    }
+    
 }
 
 struct Place: Codable {

@@ -54,12 +54,15 @@ class MovingLineView: UIView {
             dateView.addSubview($0)
         })
         
+       
+        
         tableView.register(PlacePointCell.self, forCellReuseIdentifier: PlacePointCell.identifire)
         tableView.backgroundColor = .clear
         
         backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         backButton.tintColor = .black
         
+//        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Pin")
         mapView.layer.cornerRadius = cornerRadius
         
         dateLabel.textColor = .text
@@ -170,17 +173,33 @@ class MovingLineView: UIView {
         
         guard !placeList.isEmpty else { return }
         
-        placeList.forEach({
-            (place) in
+        for (index, place) in placeList.enumerated() {
+            
             let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
-            addAnnotation(name: place.name, address: place.address, coordinate: coordinate)
-        })
-        
+            addAnnotation(name: place.name, address: place.address, coordinate: coordinate, index: index)
+            
+        }
         let center = getCenter(placeList: placeList)
         let zoom = getZoom(placeList: placeList)
         
         setResion(latitude: center.latitude, longitude: center.longitude, latZoom: zoom.zoomLatitude, logZoom: zoom.zoomLongitude)
         
+    }
+    
+    func updateDatas(placeList: [Place], position: Place) {
+        tableView.reloadData()
+        mapView.removeAnnotations(mapView.annotations)
+        
+        guard !placeList.isEmpty else { return }
+        
+        for (index, place) in placeList.enumerated() {
+            
+            let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+            addAnnotation(name: place.name, address: place.address, coordinate: coordinate, index: index)
+            
+        }
+        
+        setResion(latitude: position.latitude, longitude: position.longitude, latZoom: 0.001, logZoom: 0.001)
     }
     
     // 중심좌표 및 줌 반환 메서드
@@ -206,17 +225,17 @@ class MovingLineView: UIView {
         
         
         if let maximumLatitude = sortedLatitude.last?.latitude, let minimumLatitude = sortedLatitude.first?.latitude {
-            latZoom = maximumLatitude - minimumLatitude
+            latZoom = (maximumLatitude - minimumLatitude) * 1.4
         }
         if let maximumLongitude = sortedLongitude.last?.longitude, let minimumLongitude = sortedLongitude.first?.longitude {
-            logZoom = maximumLongitude - minimumLongitude
+            logZoom = (maximumLongitude - minimumLongitude) * 1.4
         }
         
         return (latZoom, logZoom)
     }
     
     // 맵뷰 시점 이동
-    private func setResion(latitude: Double, longitude: Double, latZoom: Double, logZoom: Double) {
+    func setResion(latitude: Double, longitude: Double, latZoom: Double, logZoom: Double) {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let span = MKCoordinateSpan(latitudeDelta: latZoom, longitudeDelta: logZoom)
         let region = MKCoordinateRegion(center: coordinate, span: span)
@@ -224,8 +243,8 @@ class MovingLineView: UIView {
     }
     
     // 맵뷰 어노테이션 찍기
-    private func addAnnotation(name: String?, address: String?, coordinate: CLLocationCoordinate2D) {
-        let annotation = MKPointAnnotation()
+    private func addAnnotation(name: String?, address: String?, coordinate: CLLocationCoordinate2D, index: Int) {
+        let annotation = MovingLineAnnotation(index: index)
         annotation.title = name
         annotation.subtitle = address
         annotation.coordinate = coordinate

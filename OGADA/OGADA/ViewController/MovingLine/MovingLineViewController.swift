@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import CoreLocation
-import GoogleMaps
+import MapKit
 
 class MovingLineViewController: UIViewController {
     
     private let movingeLineView = MovingLineView()
     private var model: MovingLineModel!
+    private var annotationSubViews: [UIView] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +52,8 @@ class MovingLineViewController: UIViewController {
         
         movingeLineView.tableView.dataSource = self
         movingeLineView.tableView.delegate = self
+        
+        movingeLineView.mapView.delegate = self
         
         movingeLineView.addPlacePointButton.addTarget(
             self,
@@ -131,6 +133,17 @@ class MovingLineViewController: UIViewController {
         movingeLineView.reLoadDatas(placeList: model.getPlaceList())
     }
     
+    private func deletePlace(indexPath: IndexPath) {
+        model.deletePlace(index: indexPath.row)
+        let playList = model.getPlaceList()
+        movingeLineView.reLoadDatas(placeList: playList)
+        
+    }
+    
+    private func updatePlace(indexPath: IndexPath, place: Place) {
+        model.updatePlace(index: indexPath.row, place: place)
+        movingeLineView.updateDatas(placeList: model.getPlaceList(), position: place)
+    }
     
 }
 
@@ -156,6 +169,69 @@ extension MovingLineViewController: UITableViewDataSource {
 }
 
 extension MovingLineViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let place = model.getPlace(index: indexPath.row)
+        movingeLineView.setResion(latitude: place.latitude, longitude: place.longitude, latZoom: 0.005, logZoom: 0.005)
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        var place = model.getPlace(index: indexPath.row)
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "삭제", handler: {
+            [weak self] (ac: UIContextualAction, view: UIView, completion: (Bool) -> Void) in
+            self?.deletePlace(indexPath: indexPath)
+            completion(true)
+        })
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        
+        let visit = model.getPlace(index: indexPath.row).isVisit
+        let title = visit ? "방문 취소": "방문 완료"
+        let imageName = visit ? "flag.slash": "flag"
+        let color: UIColor = visit ? UIColor.negative: UIColor.positive
+        let visitAction = UIContextualAction(style: .normal, title: title, handler: {
+            [weak self] (ac: UIContextualAction, view: UIView, completion: (Bool) -> Void) in
+            place.isVisit = !visit
+            self?.updatePlace(indexPath: indexPath, place: place)
+            completion(true)
+        })
+        visitAction.image = UIImage(systemName: imageName)
+        visitAction.backgroundColor = color
+        let confige = UISwipeActionsConfiguration(actions: [deleteAction, visitAction])
+        confige.performsFirstActionWithFullSwipe = false
+        return confige
+    }
+    
+    
+}
+
+//MARK: MapView extension
+
+extension MovingLineViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let identifier = "Pin"
+        let annotation = annotation as! MovingLineAnnotation
+
+        let index = annotation.index
+        let isVisit = model.getPlace(index: index).isVisit
+        
+//        print(annotation.title)
+//        print(isVisit)
+        if isVisit {
+                let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView.image = UIImage(systemName: "flag.fill")
+                annotationView.canShowCallout = true
+                return annotationView
+        } else {
+                let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                return annotationView
+        }
+    }
+    
+    
     
     
 }
