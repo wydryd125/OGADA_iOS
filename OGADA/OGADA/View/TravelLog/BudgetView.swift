@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 protocol BudgetViewDelegate: class {
     func didTabAddCashButton() -> ()
 }

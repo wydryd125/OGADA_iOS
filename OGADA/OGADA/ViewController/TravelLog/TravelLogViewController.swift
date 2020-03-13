@@ -16,6 +16,7 @@ class TravelLogViewController: BaseViewController {
     private lazy var totalBudget: Int = self.shared.totalBudget //(SelectedTravel.shared?.totalBudget)!
 
     // 오늘 환율
+    private var todayExchange: Double = 0
     private var inputCash: Int = 0
     
     private var krwCashBalance: Int = 600000
@@ -43,20 +44,34 @@ class TravelLogViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
+        print("------------- [ ExchangeAPI ] --------------")
+        
+        ExchangeAPI().tempRequest(tempForeign: exchangeType) { (result) in
+          
+            self.todayExchange = result
+
+            
+            print("todayExchange \(self.todayExchange)")
+            
+        }
+        
+
         view.backgroundColor = .background
         
 //        let dates = DateWorker.getDateLevel(<#T##self: DateWorker##DateWorker#>)
-        print("------------/n seletedTravel")
-        print(SelectedTravel.shared)
+//        print("------------/n seletedTravel")
+//        print(SelectedTravel.shared)
+//
+//        print(shared.departureDate, "type -> ", type(of: shared.departureDate))
+//        print(shared.arrivalDate, "type -> ", type(of: shared.arrivalDate))
+//
+//        print(dateArr)
         
-        print(shared.departureDate, "type -> ", type(of: shared.departureDate))
-        print(shared.arrivalDate, "type -> ", type(of: shared.arrivalDate))
-        
-        print(dateArr)
         setUI()
         setConstraint()
         
+       
     }
     
     
@@ -132,7 +147,9 @@ class TravelLogViewController: BaseViewController {
     // 현금 추가 alert
     private func addCashAlert() {
         //오늘 환율
-        let addAlert = UIAlertController(title: "오늘의 환율", message: "환율 자리", preferredStyle: .alert)
+        let viewTodayExchange = String(format: "%.2f", todayExchange)
+
+        let addAlert = UIAlertController(title: "오늘의 환율", message: "1 \(exchangeType) = \(viewTodayExchange) KRW", preferredStyle: .alert)
         
         let addCashButton = UIAlertAction(title: "추가", style: .default) { _ in
             var addValue = 0
