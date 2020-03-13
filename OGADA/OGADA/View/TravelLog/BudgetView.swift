@@ -11,6 +11,7 @@ import UIKit
 
 protocol BudgetViewDelegate: class {
     func didTabAddCashButton() -> ()
+//    func didReloadBalance() -> ()
 }
 
 class BudgetView: UIView {
@@ -185,7 +186,7 @@ class BudgetView: UIView {
         
         // 고정
         NSLayoutConstraint.activate([
-            totalTextLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: margin),
+            totalTextLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             totalTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin)
 ,
             
@@ -257,6 +258,12 @@ class BudgetView: UIView {
     @objc private func didTabAddCashButton(sender: UIButton) {
         // 환율 + 환전 추가금액 alert창
         delegate?.didTabAddCashButton()
-        //reload
+        
+    }
+    
+    func set(foreignCashBalanceLabelText: String, krwCashBalanceLabelText: String) {
+        foreignCashBalanceLabel.text = foreignCashBalanceLabelText + " " + exchangeType
+
+        krwCashBalanceLabel.text = krwCashBalanceLabelText + " KRW"
     }
 }
