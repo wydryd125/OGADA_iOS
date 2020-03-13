@@ -223,7 +223,7 @@ class CreateDayPayView: UIView {
     }
     
     
-    //MARK: - Action
+    //MARK: - Delegate Action
     @objc private func didTabAddPictureButton(sender: UIButton) {
         print("view didTabAddPicture")
         delegate?.addPicture()
@@ -244,6 +244,14 @@ class CreateDayPayView: UIView {
         print("didTabPayType")
         delegate?.didTabPayTypeButton()
     }
+    
+    
+    //MARK: - Action
+    
+    func setImageOfAddPictuerButton(image: UIImage) {
+        addPictureButton.setImage(image, for: .normal)
+    }
+    
 }
 
 
