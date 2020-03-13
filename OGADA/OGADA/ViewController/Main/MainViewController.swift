@@ -224,7 +224,6 @@ extension MainViewController: MainButtonCollectionViewCellDelegate {
         
         let addTravelVC = AddTravelViewController()
         navigationController?.pushViewController(addTravelVC, animated: true)
-        
 
     }
     
