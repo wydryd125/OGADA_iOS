@@ -158,16 +158,16 @@ extension MainViewController: UICollectionViewDelegate {
         case 0:
             print("add")
         default:
-            let movingLingVC = MovingLineViewController()
-            navigationController?.pushViewController(movingLingVC, animated: false)
+//            let movingLingVC = MovingLineViewController()
+//            navigationController?.pushViewController(movingLingVC, animated: false)
 //            keys
-//            let key = travelKeys[indexPath.row - 1]
-//            guard let travelData = UserDefaults.standard.data(forKey: key) else { return }
-//            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { return }
-//            SelectedTravel.shared = travel
-//            SelectedTravel.key = key
-//            pushTravelController()
-////            print("default")
+            let key = travelKeys[indexPath.row - 1]
+            guard let travelData = UserDefaults.standard.data(forKey: key) else { return }
+            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { return }
+            SelectedTravel.shared = travel
+            SelectedTravel.key = key
+            pushTravelController()
+//            print("default")
         }
     }
 }
