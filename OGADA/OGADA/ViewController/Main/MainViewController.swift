@@ -14,10 +14,10 @@ class MainViewController: UIViewController {
     private var travelKeys: [String] = []
     private enum UI {
         static let itemsInLine: CGFloat = 2
-        static let linesOnScreen: CGFloat = 2
-        static let itemSpacing: CGFloat = 10.0
-        static let lineSpacing: CGFloat = 10.0
-        static let edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        static let linesOnScreen: CGFloat = 2.2
+        static let itemSpacing: CGFloat = 11.0
+        static let lineSpacing: CGFloat = 11.0
+        static let edgeInsets = UIEdgeInsets(top: 11, left: 11, bottom: 11, right: 11)
     }
     
     private var collectionView: UICollectionView = {
@@ -141,7 +141,7 @@ extension MainViewController: UICollectionViewDataSource {
             
             let travel = travels[indexPath.row - 1]
             
-            cell.configure(travel: travel.nation, departureDate: travel.departureDate, arrivalDate: travel.arrivalDate , sutitle: travel.subTitle)
+            cell.configure(travel: travel.nation, departureDate: travel.departureDate, arrivalDate: travel.arrivalDate , sutitle: travel.subTitle, image: travel.nation)
             
             return cell
         }
@@ -216,10 +216,12 @@ extension MainViewController: MainButtonCollectionViewCellDelegate {
     func didTapAddButton() {
 //        let inputVC = InputInfoViewController()
 //        navigationController?.pushViewController(inputVC, animated: true)
+
         
         let addTravelVC = AddTravelViewController()
         navigationController?.pushViewController(addTravelVC, animated: true)
-//        
+        
+
     }
     
 }

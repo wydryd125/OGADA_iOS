@@ -35,27 +35,32 @@ class MainButtonCollectionViewCell: UICollectionViewCell {
     }
     //MARK: UI
     func setUI() {
+       
+        let textSize: CGFloat = 14
+        let subTextSize: CGFloat = 16
         
-        contentView.backgroundColor = .theme
+        
+        contentView.backgroundColor = .text
         clipsToBounds = true
         layer.cornerRadius = 20
         
         travelAddButton.setImage(UIImage(named: "addButton"), for: .normal)
         travelAddButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
-//        travelAddButton.backgroundColor = .white
+        travelAddButton.backgroundColor = .text
         contentView.addSubview(travelAddButton)
         
+        
         OGADALabel.text = "OGADA"
-        OGADALabel.font = UIFont.boldSystemFont(ofSize: 16)
+        OGADALabel.font = UIFont.boldSystemFont(ofSize: subTextSize)
         OGADALabel.textAlignment = .center
-        OGADALabel.textColor = .text
+        OGADALabel.textColor = .background
 //        OGADALabel.backgroundColor = .gray
         contentView.addSubview(OGADALabel)
         
         buttonCellLabel.text = "새로운 여정을 추가하세요!"
-        buttonCellLabel.font = UIFont.systemFont(ofSize: 12)
+        buttonCellLabel.font = UIFont.systemFont(ofSize: textSize)
         buttonCellLabel.textAlignment = .center
-        buttonCellLabel.textColor = .text
+        buttonCellLabel.textColor = .background
 //        buttonCellLabel.backgroundColor = .darkGray
         contentView.addSubview(buttonCellLabel)
    

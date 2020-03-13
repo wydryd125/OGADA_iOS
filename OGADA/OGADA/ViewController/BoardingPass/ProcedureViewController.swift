@@ -10,8 +10,7 @@ import UIKit
 
 class ProcedureViewController: BaseViewController {
     
-//    private var datalist: [[String:String]] = []
-    private var detaildata : [String: String] = [:]
+    private var detailData : [String: String] = [:]
     private var elementTemp: String = ""
     private var blank: Bool = false
     
@@ -87,7 +86,7 @@ extension ProcedureViewController: XMLParserDelegate {
     }
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         if blank == true && elementTemp != "item" && elementTemp != "items" && elementTemp != "body" && elementTemp != "header" && elementTemp != "response" {
-            detaildata[elementTemp] = string
+            detailData[elementTemp] = string
         }
     }
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
@@ -114,10 +113,25 @@ extension ProcedureViewController: UITableViewDataSource {
         
         if terno == 1 {
             let key = terminal1Keys[indexPath.row]
-            cell.textLabel?.text = key + " / " + detaildata[key]!
+            
+            if let data = detailData[key] {
+                if let result = Int(data) {
+                    cell.textLabel?.text = "\(key) - 현재 대기중인 인원은 \(result) 명 입니다."
+                } else {
+                    cell.textLabel?.text = "\(key) - 현재 \(data) 입니다."
+                }
+            }
+            
         } else {
             let key = terminal2Keys[indexPath.row]
-            cell.textLabel?.text = key + " / " + detaildata[key]!
+            
+            if let data = detailData[key] {
+                if let result = Int(data) {
+                    cell.textLabel?.text = "\(key) - 현재 대기중인 인원은 \(result) 명 입니다."
+                } else {
+                    cell.textLabel?.text = "\(key) - 현재 \(data) 입니다."
+                }
+            }
         }
         cell.textLabel?.textAlignment = .left
         cell.textLabel?.textColor = .text
