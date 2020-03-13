@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TravelLogViewController: BaseViewController {
+class TravelLogViewController: UIViewController/*BaseViewController*/ {
     
     private let shared = SelectedTravel.shared!
     private var dateArr = DateWorker().getDateLevel(start: SelectedTravel.shared!.departureDate, end: SelectedTravel.shared!.arrivalDate)
@@ -17,7 +17,8 @@ class TravelLogViewController: BaseViewController {
 
     // 오늘 환율
     private var todayExchange: Double = 0
-    private var inputCash: Int = 0
+    private var inputKRWCash: Int = 0
+    private var inputForeignCash: Int = 0
     
     private var krwCashBalance: Int = 600000
     private var krwCardBalance: Int = 400000
@@ -28,8 +29,9 @@ class TravelLogViewController: BaseViewController {
     // post it 관련
     // 여러개 들어오 예정
 //    private let day: Int = 1
+    
     private let date: String = "2020.01.01"
-    private let foreignCash: Int = 100
+    private var foreignCash: Int = 100
     private let krwCash: Int = 120000
     private let foreignCard: Int = 210
     private let krwCard: Int = 252000
@@ -83,18 +85,21 @@ class TravelLogViewController: BaseViewController {
         setFlowLaytou()
         
         
-        backButton.tintColor = .lightGray
+//        backButton.tintColor = .lightGray
         
         collectionView.register(PostItCollectionViewCell.self, forCellWithReuseIdentifier: PostItCollectionViewCell.identifier)
         collectionView.backgroundColor = .background
         collectionView.delegate = self
         collectionView.dataSource = self
         
+//        navigationItem.backBarButtonItem?.tintColor = .white
+//        navigationController?.navigationItem.backBarButtonItem?.tintColor = .white
         
+        navigationController?.navigationBar.tintColor = .lightGray
         
         view.addSubview(budgetView)
         view.addSubview(collectionView)
-        view.bringSubviewToFront(backButton)
+//        view.bringSubviewToFront(backButton)
 
         
     }
@@ -152,12 +157,24 @@ class TravelLogViewController: BaseViewController {
         let addAlert = UIAlertController(title: "오늘의 환율", message: "1 \(exchangeType) = \(viewTodayExchange) KRW", preferredStyle: .alert)
         
         let addCashButton = UIAlertAction(title: "추가", style: .default) { _ in
-            var addValue = 0
-            if let textField = addAlert.textFields?.first, let inputValue = textField.text, let cash = Int(inputValue) {
-                addValue = cash
+            var addValue: Double = 0
+            if let textField = addAlert.textFields?.first, let inputValue = textField.text, let cash = Double(inputValue) {
+                
+                // 외화
+                self.inputForeignCash = Int(cash)
+                // 외화 -> krw
+                addValue = cash * self.todayExchange
             }
-            self.inputCash += addValue
-            print("addCashButton Click ->/n addValue = \(addValue) inputCash = \(self.inputCash)")
+            self.inputKRWCash += Int(addValue)
+            print("addCashButton Click ->/n addValue = \(addValue) inputKRWCash = \(self.inputKRWCash)")
+            print("inputForeignCash \(self.inputForeignCash)")
+            
+            // MARK: - alert에서 입력받은 돈 cash에 추가.
+            self.krwCashBalance += self.inputKRWCash
+            self.foreignCashBalance += self.inputForeignCash
+            
+            
+            self.budgetView.set(foreignCashBalanceLabelText: String(self.foreignCashBalance),krwCashBalanceLabelText:  String(self.krwCashBalance))
         }
         
         addAlert.addAction(addCashButton)
