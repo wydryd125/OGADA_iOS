@@ -45,7 +45,9 @@ class MainViewController: UIViewController {
         
         for key in UDkeys {
             guard let travelData = UserDefaults.standard.data(forKey: key) else { break }
-            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { break }
+            print(travelData)
+            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { continue }
+            print(travel)
             self.travels.append(travel)
         }
         
@@ -214,10 +216,12 @@ extension MainViewController: MainButtonCollectionViewCellDelegate {
     func didTapAddButton() {
 //        let inputVC = InputInfoViewController()
 //        navigationController?.pushViewController(inputVC, animated: true)
+
         
         let addTravelVC = AddTravelViewController()
         navigationController?.pushViewController(addTravelVC, animated: true)
         
+
     }
     
 }

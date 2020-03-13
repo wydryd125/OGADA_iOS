@@ -381,8 +381,9 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
             let arrivalDate = arrivalDate,
             let nation = nationText else { return print("foreign")}
         
-        let travel = TravelInfo(nation: nation, departureDate: departuteDate, arrivalDate: arrivalDate, subTitle: subTitle, foreign: foreign, totalBudget: totalBudget)
-        //        print(travel)
+        guard let inputForeign = Foreign.getForegin(foregin: foreign) else { return }
+        let travel = TravelInfo(nation: nation, departureDate: departuteDate, arrivalDate: arrivalDate, subTitle: subTitle, foreign: inputForeign, totalBudget: totalBudget)
+//        print(travel)
         
         let date = Date()
         let formatter = DateFormatter()
@@ -406,6 +407,8 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         
         
         guard let result = try? JSONEncoder().encode(travel) else { return }
+        print(try? JSONDecoder().decode(TravelInfo.self, from: result))
+        
         UserDefaults.standard.set(result, forKey: finalKey)
         
         navigationController?.popViewController(animated: true)

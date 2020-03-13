@@ -44,6 +44,7 @@ class PlacePointCell: UITableViewCell {
         titleLabel.textColor = .text
         
         addressLabel.textColor = .subText
+        addressLabel.numberOfLines = 0
         
     }
     
@@ -87,11 +88,13 @@ class PlacePointCell: UITableViewCell {
     
     
     //MARK: Configure
-    func configure(flow: String, title: String, address: String) {
+    func configure(flow: String, title: String, address: String, isVisit: Bool) {
         
         flowLabel.text = flow
         titleLabel.text = title
         addressLabel.text = address
+        let visitDisplayColor = isVisit ? UIColor.positive: UIColor.negative
+        flowLabel.backgroundColor = visitDisplayColor
         
     }
     
