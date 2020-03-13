@@ -58,7 +58,11 @@ class MainViewController: UIViewController {
     // MARK: UI
     private func setUI() {
         
-        navigationController?.navigationBar.isHidden = true
+//        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        title = ""
+        navigationController?.navigationBar.tintColor = .text
         
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.identifier)
         collectionView.register(MainButtonCollectionViewCell.self, forCellWithReuseIdentifier: MainButtonCollectionViewCell.identifier)
@@ -220,6 +224,7 @@ extension MainViewController: MainButtonCollectionViewCellDelegate {
         
         let addTravelVC = AddTravelViewController()
         navigationController?.pushViewController(addTravelVC, animated: true)
+
     }
     
 }
