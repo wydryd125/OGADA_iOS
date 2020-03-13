@@ -17,9 +17,17 @@ enum PaymentCategory: String {
     case admission = "입장료"
     case traffic = "교통비"
     case other = "기타"
+    
+    func allCase() -> [String] {
+        return ["숙소", "밥", "카페", "술", "선물", "입장료", "교통비", "기타" ]
+    }
 }
 
-enum payType: String {
+enum PayType: String {
     case card = "card"
     case cash = "cash"
+    
+    func allCase() -> [String] {
+        return ["card", "cash"]
+    }
 }

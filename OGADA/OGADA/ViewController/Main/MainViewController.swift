@@ -45,7 +45,9 @@ class MainViewController: UIViewController {
         
         for key in UDkeys {
             guard let travelData = UserDefaults.standard.data(forKey: key) else { break }
-            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { break }
+            print(travelData)
+            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { continue }
+            print(travel)
             self.travels.append(travel)
         }
         
@@ -152,16 +154,16 @@ extension MainViewController: UICollectionViewDelegate {
         case 0:
             print("add")
         default:
-//            let movingLingVC = MovingLineViewController()
-//            navigationController?.pushViewController(movingLingVC, animated: false)
+            let movingLingVC = MovingLineViewController()
+            navigationController?.pushViewController(movingLingVC, animated: false)
 //            keys
-            let key = travelKeys[indexPath.row - 1]
-            guard let travelData = UserDefaults.standard.data(forKey: key) else { return }
-            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { return }
-            SelectedTravel.shared = travel
-            SelectedTravel.key = key
-            pushTravelController()
-//            print("default")
+//            let key = travelKeys[indexPath.row - 1]
+//            guard let travelData = UserDefaults.standard.data(forKey: key) else { return }
+//            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { return }
+//            SelectedTravel.shared = travel
+//            SelectedTravel.key = key
+//            pushTravelController()
+////            print("default")
         }
     }
 }
@@ -214,10 +216,10 @@ extension MainViewController: MainButtonCollectionViewCellDelegate {
     func didTapAddButton() {
 //        let inputVC = InputInfoViewController()
 //        navigationController?.pushViewController(inputVC, animated: true)
+
         
         let addTravelVC = AddTravelViewController()
         navigationController?.pushViewController(addTravelVC, animated: true)
-        
     }
     
 }

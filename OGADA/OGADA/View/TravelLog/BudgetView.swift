@@ -9,7 +9,13 @@
 import UIKit
 
 
+protocol BudgetViewDelegate: class {
+    func didTabAddCashButton() -> ()
+}
+
 class BudgetView: UIView {
+    
+    weak var delegate: BudgetViewDelegate?
     
     var totalBudget: Int
     var krwCashBalance: Int
@@ -250,7 +256,7 @@ class BudgetView: UIView {
     
     @objc private func didTabAddCashButton(sender: UIButton) {
         // 환율 + 환전 추가금액 alert창
-        print("addCashButton Click")
+        delegate?.didTabAddCashButton()
         //reload
     }
 }
