@@ -42,21 +42,24 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
     private let labelBoldLine = UILabel()
     private let labelBoldLine2 = UILabel()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //delegate
         setUI()
         setConstrains()
     }
+    
     //MARK: UI
     func setUI() {
         let textSize: CGFloat = 16
-         view.backgroundColor = .background
+        view.backgroundColor = .background
         
         OGADA.text = "OGADA"
         OGADA.textColor = .text
         OGADA.font = UIFont.boldSystemFont(ofSize: 24)
         view.addSubview(OGADA)
+
         
         labelBoldLine.backgroundColor = .subText
         view.addSubview(labelBoldLine)
@@ -123,8 +126,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         memoImage.image = UIImage(named: "메모")
         memoImage.contentMode = .scaleAspectFill
         view.addSubview(memoImage)
-      
-//        subTitleTextField.placeholder = "여행에 대해 알려주세요!"
+        
         subTitleTextField.textColor = .subText
         subTitleTextField.backgroundColor = .clear
         view.addSubview(subTitleTextField)
@@ -162,7 +164,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         
         labelBoldLine2.backgroundColor = .subText
         view.addSubview(labelBoldLine2)
-
+        
     }
     func setConstrains() {
         
@@ -170,12 +172,12 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         let padding: CGFloat = 8
         let lineHeight: CGFloat = 2
         
-        [OGADA,labelBoldLine,nationLabel,nationButton,otherNationTextField,departureDateButton,arrivalDateButton,subTitleLabel,subTitleTextField,moneyLabel,moneySelectButton, leftImage,rightImage,totalBudgetLabel,totalBudgetTextField,memoImage,labelBoldLine2,completeButton].forEach {
+       [OGADA,labelBoldLine,nationLabel,nationButton,otherNationTextField,departureDateButton,arrivalDateButton,subTitleLabel,subTitleTextField,moneyLabel,moneySelectButton, leftImage,rightImage,totalBudgetLabel,totalBudgetTextField,memoImage,labelBoldLine2,completeButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         OGADA.topAnchor.constraint(equalTo: guide.topAnchor, constant: padding * 2).isActive = true
         OGADA.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 2).isActive = true
-    
+        
         labelBoldLine.topAnchor.constraint(equalTo: OGADA.bottomAnchor, constant: padding * 4  ).isActive = true
         labelBoldLine.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
         labelBoldLine.heightAnchor.constraint(equalToConstant: lineHeight).isActive = true
@@ -195,40 +197,8 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         otherNationTextField.heightAnchor.constraint(equalToConstant: 38).isActive = true
         otherNationTextField.leadingAnchor.constraint(equalTo: nationButton.trailingAnchor, constant: padding * 2).isActive = true
         otherNationTextField.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 4).isActive = true
-       
         
-        departureDateButton.topAnchor.constraint(equalTo: nationButton.bottomAnchor, constant: padding * 4).isActive = true
-        departureDateButton.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 3).isActive = true
-        departureDateButton.heightAnchor.constraint(equalToConstant: 38).isActive = true
-        departureDateButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        leftImage.centerYAnchor.constraint(equalTo: departureDateButton.centerYAnchor).isActive = true
-        leftImage.leadingAnchor.constraint(equalTo: departureDateButton.trailingAnchor).isActive = true
-        leftImage.trailingAnchor.constraint(equalTo: labelBoldLine.trailingAnchor, constant: -padding * 2).isActive = true
-        
-        arrivalDateButton.topAnchor.constraint(equalTo: leftImage.bottomAnchor, constant: padding * 4).isActive = true
-        arrivalDateButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 3).isActive = true
-        arrivalDateButton.heightAnchor.constraint(equalToConstant: 38).isActive = true
-        arrivalDateButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        rightImage.centerYAnchor.constraint(equalTo: arrivalDateButton.centerYAnchor).isActive = true
-        rightImage.trailingAnchor.constraint(equalTo: arrivalDateButton.leadingAnchor).isActive = true
-        rightImage.leadingAnchor.constraint(equalTo: labelBoldLine.leadingAnchor, constant: padding * 2).isActive = true
-        
-        subTitleLabel.topAnchor.constraint(equalTo: arrivalDateButton.bottomAnchor, constant: padding * 4).isActive = true
-
-        subTitleLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 4).isActive = true
-        subTitleLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        memoImage.topAnchor.constraint(equalTo: arrivalDateButton.bottomAnchor, constant: padding * 4).isActive = true
-        memoImage.leadingAnchor.constraint(equalTo: subTitleLabel.trailingAnchor, constant: padding * 4).isActive = true
-        memoImage.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 4).isActive = true
-        
-        subTitleTextField.topAnchor.constraint(equalTo: memoImage.topAnchor).isActive = true
-        subTitleTextField.leadingAnchor.constraint(equalTo: memoImage.leadingAnchor, constant: padding * 2).isActive = true
-        subTitleTextField.trailingAnchor.constraint(equalTo: memoImage.trailingAnchor, constant: -padding * 2).isActive = true
-
-        moneyLabel.topAnchor.constraint(equalTo: memoImage.bottomAnchor, constant: padding * 4).isActive = true
+        moneyLabel.topAnchor.constraint(equalTo: nationButton.bottomAnchor, constant: padding * 4).isActive = true
         moneyLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 4).isActive = true
         moneyLabel.heightAnchor.constraint(equalToConstant: 38).isActive = true
         moneyLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
@@ -238,7 +208,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         moneySelectButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 4).isActive = true
         
         totalBudgetLabel.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: padding * 4).isActive = true
-         totalBudgetLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 4).isActive = true
+        totalBudgetLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 4).isActive = true
         totalBudgetLabel.heightAnchor.constraint(equalToConstant: 38).isActive = true
         totalBudgetLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
@@ -246,7 +216,40 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         totalBudgetTextField.leadingAnchor.constraint(equalTo: totalBudgetLabel.trailingAnchor, constant: padding * 4).isActive = true
         totalBudgetTextField.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 4).isActive = true
         
-        completeButton.topAnchor.constraint(equalTo: totalBudgetTextField.bottomAnchor, constant: padding * 8).isActive = true
+        subTitleLabel.topAnchor.constraint(equalTo: totalBudgetLabel.bottomAnchor, constant: padding * 4).isActive = true
+        
+        subTitleLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 4).isActive = true
+        subTitleLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        memoImage.topAnchor.constraint(equalTo: subTitleLabel.topAnchor).isActive = true
+        memoImage.leadingAnchor.constraint(equalTo: subTitleLabel.trailingAnchor, constant: padding * 4).isActive = true
+        memoImage.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 4).isActive = true
+        
+        subTitleTextField.topAnchor.constraint(equalTo: memoImage.topAnchor).isActive = true
+        subTitleTextField.leadingAnchor.constraint(equalTo: memoImage.leadingAnchor, constant: padding * 2).isActive = true
+        subTitleTextField.trailingAnchor.constraint(equalTo: memoImage.trailingAnchor, constant: -padding * 2).isActive = true
+        
+        
+        departureDateButton.topAnchor.constraint(equalTo: memoImage.bottomAnchor, constant: padding * 4).isActive = true
+        departureDateButton.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: padding * 3).isActive = true
+        departureDateButton.heightAnchor.constraint(equalToConstant: 38).isActive = true
+        departureDateButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        leftImage.centerYAnchor.constraint(equalTo: departureDateButton.centerYAnchor).isActive = true
+        leftImage.leadingAnchor.constraint(equalTo: departureDateButton.trailingAnchor).isActive = true
+        leftImage.trailingAnchor.constraint(equalTo: labelBoldLine.trailingAnchor, constant: -padding * 2).isActive = true
+
+        arrivalDateButton.topAnchor.constraint(equalTo: leftImage.bottomAnchor, constant: padding * 4).isActive = true
+        arrivalDateButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -padding * 3).isActive = true
+        arrivalDateButton.heightAnchor.constraint(equalToConstant: 38).isActive = true
+        arrivalDateButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        rightImage.centerYAnchor.constraint(equalTo: arrivalDateButton.centerYAnchor).isActive = true
+        rightImage.trailingAnchor.constraint(equalTo: arrivalDateButton.leadingAnchor).isActive = true
+        rightImage.leadingAnchor.constraint(equalTo: labelBoldLine.leadingAnchor, constant: padding * 2).isActive = true
+        
+//
+        completeButton.topAnchor.constraint(equalTo: rightImage.bottomAnchor, constant: padding * 4).isActive = true
         completeButton.centerXAnchor.constraint(equalTo: guide.centerXAnchor).isActive = true
         completeButton.widthAnchor.constraint(equalTo: guide.widthAnchor, multiplier: 0.3).isActive = true
         completeButton.heightAnchor.constraint(equalTo: completeButton.widthAnchor).isActive = true
@@ -256,15 +259,12 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         labelBoldLine2.heightAnchor.constraint(equalToConstant: lineHeight).isActive = true
         labelBoldLine2.widthAnchor.constraint(equalTo: guide.widthAnchor, multiplier: 0.9).isActive = true
         
-    
+        
         
     }
     //MARK: Action
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-          self.view.endEditing(true)
-    }
     
-      // 국가 피커뷰
+    // 국가 피커뷰
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
@@ -279,7 +279,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         
         if sender.tag == 0 {
             nationArrayCount = nationArray.count
-//            nationButton.backgroundColor = .text
+            //            nationButton.backgroundColor = .text
         } else {
             nationArrayCount = nationArray.count - 1
         }
@@ -298,7 +298,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         self.present(alert, animated: false)
         
     }
-   func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
@@ -314,12 +314,12 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         nationSelected = nationArray[row]
         
         let breedNationSelected = nationSelected!
-       
+        
         switch selectedButton {
         case true:
             nationButton.setTitle("\(breedNationSelected)", for: .normal)
             nationText = breedNationSelected
-            case false:
+        case false:
             moneySelectButton.setTitle("\(breedNationSelected)", for: .normal)
             foreignText = breedNationSelected
         }
@@ -331,7 +331,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
             nationButton.backgroundColor = .text
             otherNationTextField.isHidden = true
         }
-       
+        
     }
     //날짜 피커뷰
     @objc func dateChanged(_ sender: UIButton) {
@@ -351,10 +351,12 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
             
             if sender == self.departureDateButton {
                 self.departureDateButton.setTitle(dateString, for: .normal)
+                self.departureDateButton.backgroundColor = .text
                 self.departureDate = self.datePickerView.date
             } else {
                 self.arrivalDateButton.setTitle(dateString, for: .normal)
                 self.arrivalDate = self.datePickerView.date
+                self.arrivalDateButton.backgroundColor = .text
             }
             
         }
@@ -395,11 +397,11 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         
         if let temp = UserDefaults.standard.object(forKey: UserDefaultKeys.travelKey.rawValue) as? [String] {
             travelKey = temp
-//            travelKey.append(finalKey)
+            //            travelKey.append(finalKey)
         } else {
             travelKey = []
         }
-
+        
         travelKey.append(finalKey)
         UserDefaults.standard.set(travelKey, forKey: "travelKey")
         
@@ -413,17 +415,14 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
     }
     
 }
+
 extension AddTravelViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            if textField.text == "" {
-                return false
-            } else {
-                textField.resignFirstResponder()
-                return true
-            }
+        if textField.text == "" {
+            return false
+        } else {
+            textField.resignFirstResponder()
+            return true
         }
-  
-    
-
-
+    }
 }
