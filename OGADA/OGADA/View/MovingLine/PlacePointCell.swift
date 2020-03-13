@@ -44,6 +44,7 @@ class PlacePointCell: UITableViewCell {
         titleLabel.textColor = .text
         
         addressLabel.textColor = .subText
+        addressLabel.numberOfLines = 0
         
     }
     
