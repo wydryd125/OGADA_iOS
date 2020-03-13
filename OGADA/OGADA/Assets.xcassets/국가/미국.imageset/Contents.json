@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "미국 2-1.jpg",
+      "filename" : "미국.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "미국 2.jpg",
       "scale" : "2x"
     },
     {
