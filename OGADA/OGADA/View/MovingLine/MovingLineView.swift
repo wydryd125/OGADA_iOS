@@ -17,7 +17,6 @@ class MovingLineView: UIView {
     let mapView = MKMapView()
     let tableView = UITableView()
     
-    let backButton = UIButton(type: .system)
     
     private let dateView = UIView()
     private let dateLabel = UILabel()
@@ -46,7 +45,7 @@ class MovingLineView: UIView {
         
         let cornerRadius: CGFloat = 16
         
-        [mapView, backButton, dateView, tableView, addPlacePointButton].forEach({
+        [mapView, dateView, tableView, addPlacePointButton].forEach({
             addSubview($0)
         })
         
@@ -59,8 +58,6 @@ class MovingLineView: UIView {
         tableView.register(PlacePointCell.self, forCellReuseIdentifier: PlacePointCell.identifire)
         tableView.backgroundColor = .clear
         
-        backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        backButton.tintColor = .black
         
 //        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "Pin")
         mapView.layer.cornerRadius = cornerRadius
@@ -88,12 +85,9 @@ class MovingLineView: UIView {
         let xMargin = margin * 2
         let multiplier: CGFloat = 0.15
         
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: margin).isActive = true
-        backButton.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin).isActive = true
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: margin).isActive = true
+        mapView.topAnchor.constraint(equalTo: guide.topAnchor, constant: margin).isActive = true
         mapView.leadingAnchor.constraint(equalTo: guide.leadingAnchor, constant: margin).isActive = true
         mapView.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -margin).isActive = true
         mapView.heightAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 0.4).isActive = true
