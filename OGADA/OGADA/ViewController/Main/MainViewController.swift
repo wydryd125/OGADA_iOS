@@ -62,7 +62,7 @@ class MainViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         title = ""
-        navigationController?.navigationBar.tintColor = .text
+        navigationController?.navigationBar.tintColor = .backButton
         
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.identifier)
         collectionView.register(MainButtonCollectionViewCell.self, forCellWithReuseIdentifier: MainButtonCollectionViewCell.identifier)
