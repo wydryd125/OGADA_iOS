@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProcedureViewController: BaseViewController {
+class ProcedureViewController: UIViewController {
     
     private var detailData : [String: String] = [:]
     private var elementTemp: String = ""
@@ -92,7 +92,7 @@ extension ProcedureViewController: XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
 //            datalist += [detaildata]
-//            dump(detaildata)
+            dump(detailData)
 //            print(datalist)
         }
         blank = false

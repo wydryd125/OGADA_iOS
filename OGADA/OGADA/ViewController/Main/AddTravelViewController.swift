@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddTravelViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     private var departureDate: Date?
     private var arrivalDate: Date?
@@ -60,6 +60,7 @@ class AddTravelViewController: BaseViewController, UIPickerViewDelegate, UIPicke
         OGADA.font = UIFont.boldSystemFont(ofSize: 24)
         view.addSubview(OGADA)
 
+        navigationController?.navigationBar.tintColor = .text
         
         labelBoldLine.backgroundColor = .subText
         view.addSubview(labelBoldLine)
