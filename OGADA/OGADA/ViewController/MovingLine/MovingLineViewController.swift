@@ -60,7 +60,6 @@ class MovingLineViewController: UIViewController {
             action: #selector(didTapAddPlacePointButton(sender:)),
             for: .touchUpInside)
         
-        
         movingeLineView.beforeDayButton.addTarget(
             self,
             action: #selector(didTapBeforeButton(sender:)),

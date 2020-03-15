@@ -15,4 +15,5 @@ extension UIColor {
     class var subText: UIColor { get { #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1) }}
     class var positive: UIColor { get { #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1) } }
     class var negative: UIColor { get { #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1) } }
+    class var backButton: UIColor { get { .lightGray } }
 }

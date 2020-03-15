@@ -382,9 +382,11 @@ class AddTravelViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             let arrivalDate = arrivalDate,
             let nation = nationText else { return print("foreign")}
         
+
         guard let inputForeign = Foreign.getForegin(foregin: foreign) else { return }
         let travel = TravelInfo(nation: nation, departureDate: departuteDate, arrivalDate: arrivalDate, subTitle: subTitle, foreign: inputForeign, totalBudget: totalBudget)
 //        print(travel)
+
         
         let date = Date()
         let formatter = DateFormatter()
