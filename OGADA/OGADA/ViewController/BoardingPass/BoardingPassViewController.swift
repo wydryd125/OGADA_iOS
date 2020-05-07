@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BoardingPassViewController: BaseViewController {
+class BoardingPassViewController: UIViewController {
     
     private let boardingPassView = UIView()
     private let boardingPassImage = UIImageView()
@@ -96,7 +96,7 @@ class BoardingPassViewController: BaseViewController {
         boardingPassView.addSubview(departureLabel)
         
         
-        arrivalLabel.text = "NYC"
+        arrivalLabel.text = "HKG"
         arrivalLabel.textColor = .text
         arrivalLabel.font = UIFont.boldSystemFont(ofSize: nationTextSize)
         arrivalLabel.textAlignment = .center
@@ -108,7 +108,7 @@ class BoardingPassViewController: BaseViewController {
         teminalLabel.textAlignment = .center
         boardingPassView.addSubview(teminalLabel)
         
-        arrivalAirportLabel.text = "John F Kennedy"
+        arrivalAirportLabel.text = "Chek Lap Kok"
         arrivalAirportLabel.textColor = .subText
         arrivalAirportLabel.font = UIFont.systemFont(ofSize: subTextSize)
         arrivalAirportLabel.textAlignment = .center
@@ -120,7 +120,7 @@ class BoardingPassViewController: BaseViewController {
         departureDateLabel.textAlignment = .left
         boardingPassView.addSubview(departureDateLabel)
         
-        departureDateOutPutLabel.text = "2020.03.01" + " / " + "09:18"
+        departureDateOutPutLabel.text = "2020.05.11" + " / " + "09:18"
         departureDateOutPutLabel.textColor = .text
         departureDateOutPutLabel.font = UIFont.boldSystemFont(ofSize: textSize)
         departureDateOutPutLabel.textAlignment = .left

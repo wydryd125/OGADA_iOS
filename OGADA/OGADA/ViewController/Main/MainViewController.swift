@@ -108,7 +108,7 @@ class MainViewController: UIViewController {
         ]
         
         
-        tabBarController.selectedIndex = 1
+//        tabBarController.selectedIndex = 1
         
         tabBarController.tabBar.backgroundImage = UIImage()
         tabBarController.tabBar.shadowImage = UIImage()
@@ -221,7 +221,7 @@ extension MainViewController: MainButtonCollectionViewCellDelegate {
 //        let inputVC = InputInfoViewController()
 //        navigationController?.pushViewController(inputVC, animated: true)
 
-        
+        print("ttt")
         let addTravelVC = AddTravelViewController()
         navigationController?.pushViewController(addTravelVC, animated: true)
 
