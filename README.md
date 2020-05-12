@@ -29,7 +29,7 @@
 
 - 메인, 보딩패스
 
-  <img src = "https://github.com/JoongChangYang/OGADA_iOS/assets/Main&BordingPass.gif"></img>
+  <img src = "https://github.com/JoongChangYang/OGADA_iOS/blob/master/assets/Main%26BordingPass.gif"></img>
 
   contributor: [wydryd125](https://github.com/wydryd125/OGADA_iOS)
 
@@ -40,7 +40,7 @@
 
 - 여행 동선
 
-  <img src = "https://github.com/JoongChangYang/OGADA_iOS/assets/Main&BordingPass.gif"></img>
+  <img src = "https://github.com/JoongChangYang/OGADA_iOS/blob/master/assets/movingline.gif"></img>
 
   contributor: [JoongChangYang](https://github.com/JoongChangYang/OGADA_iOS/tree/doro)
 
