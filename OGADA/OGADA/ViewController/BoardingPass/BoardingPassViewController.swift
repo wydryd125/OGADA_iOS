@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BoardingPassViewController: BaseViewController {
+class BoardingPassViewController: UIViewController {
     
     private let boardingPassView = UIView()
     private let boardingPassImage = UIImageView()
@@ -277,6 +277,7 @@ class BoardingPassViewController: BaseViewController {
     @objc func procedureButtonDidTap() {
         print("보기버튼눌러")
         let procedureVC = ProcedureViewController()
+        procedureVC.terno = 1
         navigationController?.pushViewController(procedureVC, animated: true)
 
         

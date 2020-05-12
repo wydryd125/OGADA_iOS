@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "일본.jpg",
+      "filename" : "일본.jpeg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "일본 2.jpg",
       "scale" : "2x"
     },
     {

@@ -11,20 +11,20 @@ import UIKit
 class MainViewController: UIViewController {
     
     private var travels: [TravelInfo] = []
-   
+    private var travelKeys: [String] = []
     private enum UI {
-           static let itemsInLine: CGFloat = 2
-           static let linesOnScreen: CGFloat = 2
-           static let itemSpacing: CGFloat = 10.0
-           static let lineSpacing: CGFloat = 10.0
-           static let edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-       }
+        static let itemsInLine: CGFloat = 2
+        static let linesOnScreen: CGFloat = 2.2
+        static let itemSpacing: CGFloat = 11.0
+        static let lineSpacing: CGFloat = 11.0
+        static let edgeInsets = UIEdgeInsets(top: 11, left: 11, bottom: 11, right: 11)
+    }
     
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -35,13 +35,19 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        SelectedTravel.shared = nil
+        SelectedTravel.key = nil
+        
         guard let UDkeys = UserDefaults.standard.object(forKey: UserDefaultKeys.travelKey.rawValue) as? [String] else { return }
         
+        self.travelKeys = UDkeys
         self.travels.removeAll()
         
         for key in UDkeys {
             guard let travelData = UserDefaults.standard.data(forKey: key) else { break }
-            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { break }
+            print(travelData)
+            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { continue }
+            print(travel)
             self.travels.append(travel)
         }
         
@@ -52,8 +58,12 @@ class MainViewController: UIViewController {
     // MARK: UI
     private func setUI() {
         
-        navigationController?.navigationBar.isHidden = true
-
+//        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        title = ""
+        navigationController?.navigationBar.tintColor = .backButton
+        
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.identifier)
         collectionView.register(MainButtonCollectionViewCell.self, forCellWithReuseIdentifier: MainButtonCollectionViewCell.identifier)
         collectionView.backgroundColor = .background
@@ -76,6 +86,7 @@ class MainViewController: UIViewController {
     private func pushTravelController() {
         let tabBarController = UITabBarController()
         
+        
         let boardingPassVC = BoardingPassViewController()
         boardingPassVC.tabBarItem.title = "보딩패스"
         
@@ -90,10 +101,10 @@ class MainViewController: UIViewController {
         
         
         tabBarController.viewControllers = [
-        boardingPassVC,
-        movingLineVC,
-        travelLogVC,
-        otherVC
+            boardingPassVC,
+            movingLineVC,
+            travelLogVC,
+            otherVC
         ]
         
         
@@ -105,7 +116,7 @@ class MainViewController: UIViewController {
         
         
     }
-
+    
 }
 
 //MARK: extension
@@ -114,7 +125,7 @@ extension MainViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return travels.count + 1
     }
-
+    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch indexPath.row {
@@ -122,7 +133,7 @@ extension MainViewController: UICollectionViewDataSource {
             let buttonCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: MainButtonCollectionViewCell.identifier,
                 for: indexPath
-            ) as! MainButtonCollectionViewCell
+                ) as! MainButtonCollectionViewCell
             buttonCell.delegate = self
             return buttonCell
             
@@ -132,8 +143,10 @@ extension MainViewController: UICollectionViewDataSource {
                 for: indexPath
                 ) as! MainCollectionViewCell
             
-//            cell.configure(travel: "" , departureDate: "departure", arrivalDate: "", sutitle: "")
-
+            let travel = travels[indexPath.row - 1]
+            
+            cell.configure(travel: travel.nation, departureDate: travel.departureDate, arrivalDate: travel.arrivalDate , sutitle: travel.subTitle, image: travel.nation)
+            
             return cell
         }
     }
@@ -148,8 +161,13 @@ extension MainViewController: UICollectionViewDelegate {
 //            let movingLingVC = MovingLineViewController()
 //            navigationController?.pushViewController(movingLingVC, animated: false)
 //            keys
+            let key = travelKeys[indexPath.row - 1]
+            guard let travelData = UserDefaults.standard.data(forKey: key) else { return }
+            guard let travel = try? JSONDecoder().decode(TravelInfo.self, from: travelData) else { return }
+            SelectedTravel.shared = travel
+            SelectedTravel.key = key
             pushTravelController()
-            print("default")
+//            print("default")
         }
     }
 }
@@ -179,7 +197,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { fatalError() }
         
         let isVertical = layout.scrollDirection == .vertical
-
+        
         let horizontalSpacing = (isVertical ? itemSpacing : lineSpacing) + horizontalInset
         let verticalSpacing = (isVertical ? lineSpacing : itemSpacing) + verticalInset
         
@@ -198,13 +216,16 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     
 }
 extension MainViewController: MainButtonCollectionViewCellDelegate {
- 
+    
     func didTapAddButton() {
+//        let inputVC = InputInfoViewController()
+//        navigationController?.pushViewController(inputVC, animated: true)
 
+        
         let addTravelVC = AddTravelViewController()
         navigationController?.pushViewController(addTravelVC, animated: true)
-       
-    }
 
+    }
+    
 }
 

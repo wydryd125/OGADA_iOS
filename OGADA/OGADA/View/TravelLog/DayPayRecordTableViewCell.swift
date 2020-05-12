@@ -77,8 +77,7 @@ class DayPayRecordTableViewCell: UITableViewCell {
         let padding: CGFloat = 16
         
         let titleImageHeight: CGFloat = (contentView.frame.width) / 2 - (margin * 2)
-        print("titleImageHeight -> \(titleImageHeight)")
-        let miniImageHeight: CGFloat = 30
+        let miniImageHeight: CGFloat = 32
         
         NSLayoutConstraint.activate([
             titleImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: margin),

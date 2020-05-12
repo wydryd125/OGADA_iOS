@@ -32,7 +32,7 @@ class AddPlacePointViewController: UIViewController {
         self.resultViewController = resultViewController
         self.searchController = UISearchController(searchResultsController: resultViewController)
         
-        self.model = AddPlacePointModel(position: 1, placeList: placeList)
+        self.model = AddPlacePointModel(position: position, placeList: placeList)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,18 +50,22 @@ class AddPlacePointViewController: UIViewController {
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        delegate?.completeAddPlaces(position: model.position, placeList: model.placeList)
-        
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+////        print(model.placeList)
+//        delegate?.completeAddPlaces(position: model.position, placeList: model.placeList)
+//
+//    }
     
     
     
     //MARK: UI
     
     private func setUI() {
+        
+        let completeButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(popAction(sender:)))
+        navigationItem.leftBarButtonItem = completeButton
+        navigationController?.navigationBar.tintColor = .text
         
         let searchBar = searchController.searchBar
         
@@ -114,8 +118,10 @@ class AddPlacePointViewController: UIViewController {
     
     //MARK: Action
     
-    @objc private func popAction(sender: UIButton) {
+    @objc private func popAction(sender: UIBarButtonItem) {
+        delegate?.completeAddPlaces(position: model.position, placeList: model.placeList)
         navigationController?.popViewController(animated: true)
+        
     }
     
     // 검색 완료시 맵뷰 검색장소로 이동
@@ -143,15 +149,16 @@ class AddPlacePointViewController: UIViewController {
     
     // 장소 추가 버튼 클릭
     @objc private func didTapAddButton() {
-        print(#function)
-        
+//        print(#function)
         let mapView = addPlacePointView.mapView
-        guard let place = model.currentPlace,
-            let index = model.selectedNumberOfPicker
+        guard let place = model.currentPlace
             else { return }
+        
+        let index = model.selectedNumberOfPicker ?? 0
         model.placeList.insert(place, at: index)
         addPlacePointView.selectedAnnotationView.hiddenView()
         mapView.removeAnnotations(mapView.annotations)
+        displayAlert(title: "동선 추가", message: "\(place.name)")
 //        print(model.placeList)
     }
     

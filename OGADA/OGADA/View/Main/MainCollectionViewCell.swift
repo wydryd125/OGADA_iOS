@@ -17,6 +17,9 @@ class MainCollectionViewCell: UICollectionViewCell {
     private let departuredateLabel = UILabel()
     private let arrivaldateLabel = UILabel()
     private let customTitleLabel = UILabel()
+    private let blurEffect = UIBlurEffect(style: .dark)
+    private lazy var blurEffectView = UIVisualEffectView(effect: self.blurEffect)
+    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,42 +32,51 @@ class MainCollectionViewCell: UICollectionViewCell {
     }
     //MARK: UI
     func setUI() {
+        let nationTextSize: CGFloat = 32
+        let textSize: CGFloat = 14
+        let subTextSize: CGFloat = 18
 
         clipsToBounds = true
         layer.cornerRadius = 20
         
+        
         imageView.contentMode = .scaleAspectFill
 //        imageView.image
         imageView.image = UIImage(named: "미국")
-        
         imageView.backgroundColor = .opaqueSeparator
         contentView.addSubview(imageView)
         
+        blurEffectView.alpha = 0.4
+        blurEffectView.frame = bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        contentView.addSubview(blurEffectView)
+        
         travelLabel.textAlignment = .center
-        travelLabel.font = UIFont.boldSystemFont(ofSize: 32)
+        travelLabel.textColor = .background
+        travelLabel.font = UIFont.boldSystemFont(ofSize: nationTextSize)
         travelLabel.text = ""
 //        travelLabel.backgroundColor = .red
         contentView.addSubview(travelLabel)
         
         departuredateLabel.textAlignment = .left
         departuredateLabel.text = "2020.02.01"
-        departuredateLabel.font = UIFont.systemFont(ofSize: 12)
-        departuredateLabel.textColor = .text
+        departuredateLabel.font = UIFont.systemFont(ofSize: textSize)
+        departuredateLabel.textColor = .background
 //        departuredateLabel.backgroundColor = .blue
         contentView.addSubview(departuredateLabel)
         
         arrivaldateLabel.textAlignment = .right
         arrivaldateLabel.text = "2020.03.01"
-        arrivaldateLabel.font = UIFont.systemFont(ofSize: 12)
-        arrivaldateLabel.textColor = .text
+        arrivaldateLabel.font = UIFont.systemFont(ofSize: textSize)
+        arrivaldateLabel.textColor = .background
 //        arrivaldateLabel.backgroundColor = .blue
         contentView.addSubview(arrivaldateLabel)
        
         customTitleLabel.textAlignment = .center
         customTitleLabel.numberOfLines = 0
         customTitleLabel.text = "유꽁이와 즐거운 뉴욕여행"
-        customTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        customTitleLabel.textColor = .text
+        customTitleLabel.font = UIFont.boldSystemFont(ofSize: subTextSize)
+        customTitleLabel.textColor = .background
 //        customTitleLabel.backgroundColor = .white
         contentView.addSubview(customTitleLabel)
     }
@@ -103,10 +115,18 @@ class MainCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func configure(travel: String, departureDate: String, arrivalDate: String, sutitle: String) {
+    func configure(travel: String, departureDate: Date, arrivalDate: Date, sutitle: String, image: String) {
+ 
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let departureDateString = formatter.string(from: departureDate)
+        let arrivalDateString = formatter.string(from: arrivalDate)
+        
         travelLabel.text = travel
-        departuredateLabel.text = departureDate
-        arrivaldateLabel.text = arrivalDate
+        departuredateLabel.text = departureDateString
+        arrivaldateLabel.text = arrivalDateString
         customTitleLabel.text = sutitle
+        imageView.image = UIImage(named: image)
+        
     }
 }
