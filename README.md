@@ -6,54 +6,38 @@
 
 
 
-
-
 ## Description
 
 - 개발 기간: 2020.03.09~ 2020.03.13 (5일)
-- 참여 인원: iOS 3명
-  - [eujin811](https://github.com/eujin811)
-  - [wydryd125](https://github.com/wydryd125)
-  - [JoongChangYang](https://github.com/JoongChangYang)
+- 참여 인원: iOS 3명 [Team repository ⬅️(Detail)](https://github.com/wydryd125/OGADA_iOS/tree/develop)
 - 사용 기술
   - Language: Swift5
   - Framework: UIKit, MapKit
-  - Open API
-    - Google: GooglePlaces
-    - 공공 데이터 포털: 인천공항 출국장 혼잡도 API 
-    - Yahoo! Finance: 환율 정보 API
+  - Open API: 공공 데이터 포털: 인천공항 출국장 혼잡도 API 
+
+- 담당 구현 파트
+	- 메인
+	- 보딩패스
 
 
 
 ## implementation
 
-- 메인, 보딩패스
+- 메인
 
   <img src = "https://github.com/JoongChangYang/OGADA_iOS/blob/master/assets/Main%26BordingPass.gif"></img>
 
-  contributor: [wydryd125 ⬅️(Detail)](https://github.com/wydryd125/OGADA_iOS)
+  
 
-  - 여행 갈 나라, 사용할 화폐, 기간 등을 설정하고 새로운 여행을 생성
-  - 인천공항의 출국장 혼잡도 데이터를 받아서 사용자에게 제공
+
+  - 여행 갈 나라, 사용할 화폐, 기간 등을 설정하여 UserDefaults에 저장
+
+  - UserDefaults에 저장된 여행 정보를 통해 메인 화면의 셀을 구성 (여행지의 사진, title, subtitle, 여행 일정)
+
+    *추후 core data를 이용하여 수정할 계획*
+
+  - 공공 데이터 포털에서 제공하는 인천공항의 출국장 혼잡도 데이터를 XML pacing하여 사용자에게 제공
+
   - 티켓 정보를 입력 받아 보딩패스를 보여줌
-    - 공공 데이터 포털에서 제공하는것을 확인 하고 진행 했으나 실제로는 데이터를 주지 않아 구현하지 못함.
 
-- 여행 동선
-
-  <img src = "https://github.com/JoongChangYang/OGADA_iOS/blob/master/assets/movingline.gif"></img>
-
-  contributor: [JoongChangYang ⬅️(Detail)](https://github.com/JoongChangYang/OGADA_iOS/tree/doro)
-
-  - 가고싶은 지역을 검색하고 동선에 추가, 저장
-  - 동선을 날짜 별로 관리하고 방문한 지역을 표시
-
-- 지출관리
-
-  이미지 첨부 예정
-
-  contributor: [eujin811 ⬅️(Detail)](https://github.com/eujin811/OGADA_iOS)
-
-  - 실시간 환율을 적용해서 지출 관리
-
-  - 날짜 별로 지출을 관리
-  - 지출에 사진과 코멘트를 달아 기록
+  
