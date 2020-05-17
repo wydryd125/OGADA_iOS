@@ -6,6 +6,7 @@
 
 
 
+
 ## Description
 
 - 개발 기간: 2020.03.09~ 2020.03.13 (5일)
@@ -28,6 +29,7 @@
   <img src = "https://github.com/JoongChangYang/OGADA_iOS/blob/master/assets/Main%26BordingPass.gif"></img>
 
   
+  
 
 
   - 여행 갈 나라, 사용할 화폐, 기간 등을 설정하여 UserDefaults에 저장
@@ -41,3 +43,6 @@
   - 티켓 정보를 입력 받아 보딩패스를 보여줌
 
   
+
+
+
