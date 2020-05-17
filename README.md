@@ -1,6 +1,6 @@
 # OGADA
 
-패스트 캠퍼스 에서 진행한 첫번째 팀 프로젝트 입니다.
+패스트 캠퍼스에서 진행한 팀 프로젝트 입니다.
 
 장소 검색을 통해 여행 동선을 계획하고 기록하며 예산을 설정하고 지출을 관리합니다.
 
@@ -31,7 +31,7 @@
 
   <img src = "https://github.com/JoongChangYang/OGADA_iOS/blob/master/assets/Main%26BordingPass.gif"></img>
 
-  contributor: [wydryd125](https://github.com/wydryd125/OGADA_iOS)
+  contributor: [wydryd125 ⬅️(Detail)](https://github.com/wydryd125/OGADA_iOS)
 
   - 여행 갈 나라, 사용할 화폐, 기간 등을 설정하고 새로운 여행을 생성
   - 인천공항의 출국장 혼잡도 데이터를 받아서 사용자에게 제공
@@ -42,7 +42,7 @@
 
   <img src = "https://github.com/JoongChangYang/OGADA_iOS/blob/master/assets/movingline.gif"></img>
 
-  contributor: [JoongChangYang](https://github.com/JoongChangYang/OGADA_iOS/tree/doro)
+  contributor: [JoongChangYang ⬅️(Detail)](https://github.com/JoongChangYang/OGADA_iOS/tree/doro)
 
   - 가고싶은 지역을 검색하고 동선에 추가, 저장
   - 동선을 날짜 별로 관리하고 방문한 지역을 표시
@@ -51,7 +51,7 @@
 
   이미지 첨부 예정
 
-  contributor: [eujin811](https://github.com/eujin811/OGADA_iOS)
+  contributor: [eujin811 ⬅️(Detail)](https://github.com/eujin811/OGADA_iOS)
 
   - 실시간 환율을 적용해서 지출 관리
 
